@@ -5,7 +5,11 @@
  */
 package fr.plil.sio.web;
 
+import static java.lang.Float.NaN;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -13,47 +17,90 @@ import java.util.List;
  * @author lelaidou
  */
 public class VideoGame {
-    private int id;
+    private Integer id;
     private String Name;
     private String Platform;
-    private String Year_of_Release;
+    private Integer Year_of_Release;
     private String Genre;
     private String Publisher;
-    private String NA_Sales;
-    private String EU_Sales;
-    private String JP_Sales;
-    private String Other_Sales;
-    private String Global_Sales;
-    private String Critic_Score;
-    private String Critic_Count;
-    private String User_Score;
-    private String User_Count;
+    private Float NA_Sales;
+    private Float EU_Sales;
+    private Float JP_Sales;
+    private Float Other_Sales;
+    private Float Global_Sales;
+    private Float Critic_Score;
+    private Integer Critic_Count;
+    private Float User_Score;
+    private Integer User_Count;
     private String Developer;
     private String Rating;
 
-    public VideoGame(int i, List<String> d) {
+    public VideoGame(Integer i, List<String> d) {
         id = i;
         Name = d.get(0);
         Platform = d.get(1);
-        Year_of_Release = d.get(2);
+        try{
+            Year_of_Release = Integer.parseInt(d.get(2));
+        }catch (Exception e){
+            Year_of_Release = 0;
+        }
+        
         Genre = d.get(3);
         Publisher = d.get(4);
-        NA_Sales = d.get(5);
-        EU_Sales = d.get(6);
-        JP_Sales = d.get(7);
-        Other_Sales = d.get(8);
-        Global_Sales = d.get(9);
-        Critic_Score = d.get(10);
-        Critic_Count = d.get(11);
-        User_Score = d.get(12);
-        User_Count = d.get(13);
+        try{
+            NA_Sales = Float.parseFloat(d.get(5));
+        }catch (Exception e){
+            NA_Sales = Float.parseFloat("0");
+        }
+        try{
+            EU_Sales = Float.parseFloat(d.get(6));
+        }catch (Exception e){
+            EU_Sales = Float.parseFloat("0");
+        }
+        try{
+            JP_Sales = Float.parseFloat(d.get(7));
+        }catch (Exception e){
+            JP_Sales = Float.parseFloat("0");
+        }
+        try{
+            Other_Sales = Float.parseFloat(d.get(8));
+        }catch (Exception e){
+            Other_Sales = Float.parseFloat("0");
+        }
+        try{
+            Global_Sales = Float.parseFloat(d.get(9));
+        }catch (Exception e){
+            Global_Sales = Float.parseFloat("0");
+        }
+        try{
+            Critic_Score = Float.parseFloat(d.get(10));
+        }catch (Exception e){
+            Critic_Score = Float.parseFloat("0");
+        }
+        try{
+            Critic_Count = Integer.parseInt(d.get(11));
+        }catch (Exception e){
+            Critic_Count = 0;
+        }
+        try{
+            User_Score = Float.parseFloat(d.get(12));
+        }catch (Exception e){
+            User_Score = Float.parseFloat("0");
+        }
+        try{
+            User_Count = Integer.parseInt(d.get(13));
+        }catch (Exception e){
+            User_Count = 0;
+        }
+   
         Developer = d.get(14);
         Rating = d.get(15);
     }
-    public int getId() {
+
+    public Integer getId() {
         return id;
     }
-    
+
     public String getName() {
         return Name;
     }
@@ -62,7 +109,7 @@ public class VideoGame {
         return Platform;
     }
 
-    public String getYear_of_Release() {
+    public Integer getYear_of_Release() {
         return Year_of_Release;
     }
 
@@ -74,39 +121,39 @@ public class VideoGame {
         return Publisher;
     }
 
-    public String getNA_Sales() {
+    public Float getNA_Sales() {
         return NA_Sales;
     }
 
-    public String getEU_Sales() {
+    public Float getEU_Sales() {
         return EU_Sales;
     }
 
-    public String getJP_Sales() {
+    public Float getJP_Sales() {
         return JP_Sales;
     }
 
-    public String getOther_Sales() {
+    public Float getOther_Sales() {
         return Other_Sales;
     }
 
-    public String getGlobal_Sales() {
+    public Float getGlobal_Sales() {
         return Global_Sales;
     }
 
-    public String getCritic_Score() {
+    public Float getCritic_Score() {
         return Critic_Score;
     }
 
-    public String getCritic_Count() {
+    public Integer getCritic_Count() {
         return Critic_Count;
     }
 
-    public String getUser_Score() {
+    public Float getUser_Score() {
         return User_Score;
     }
 
-    public String getUser_Count() {
+    public Integer getUser_Count() {
         return User_Count;
     }
 
@@ -117,12 +164,17 @@ public class VideoGame {
     public String getRating() {
         return Rating;
     }
+    
 
     public List<String> getData() {
-        return Arrays.asList(Name,Platform,Year_of_Release,Genre,Publisher,NA_Sales,EU_Sales,JP_Sales,Other_Sales,Global_Sales,Critic_Score,Critic_Count,User_Score,User_Count,Developer,Rating);
+        return Arrays.asList(Name,Platform, Year_of_Release.toString(),
+                Genre,Publisher, NA_Sales.toString(),EU_Sales.toString(),
+                JP_Sales.toString(),Other_Sales.toString(),Global_Sales.toString(),
+                Critic_Score.toString(),Critic_Count.toString(),User_Score.toString(),User_Count.toString()
+                ,Developer,Rating);
     }
-    
-    public void setId(int id) {
+
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -134,7 +186,7 @@ public class VideoGame {
         this.Platform = Platform;
     }
 
-    public void setYear_of_Release(String Year_of_Release) {
+    public void setYear_of_Release(Integer Year_of_Release) {
         this.Year_of_Release = Year_of_Release;
     }
 
@@ -146,39 +198,39 @@ public class VideoGame {
         this.Publisher = Publisher;
     }
 
-    public void setNA_Sales(String NA_Sales) {
+    public void setNA_Sales(Float NA_Sales) {
         this.NA_Sales = NA_Sales;
     }
 
-    public void setEU_Sales(String EU_Sales) {
+    public void setEU_Sales(Float EU_Sales) {
         this.EU_Sales = EU_Sales;
     }
 
-    public void setJP_Sales(String JP_Sales) {
+    public void setJP_Sales(Float JP_Sales) {
         this.JP_Sales = JP_Sales;
     }
 
-    public void setOther_Sales(String Other_Sales) {
+    public void setOther_Sales(Float Other_Sales) {
         this.Other_Sales = Other_Sales;
     }
 
-    public void setGlobal_Sales(String Global_Sales) {
+    public void setGlobal_Sales(Float Global_Sales) {
         this.Global_Sales = Global_Sales;
     }
 
-    public void setCritic_Score(String Critic_Score) {
+    public void setCritic_Score(Float Critic_Score) {
         this.Critic_Score = Critic_Score;
     }
 
-    public void setCritic_Count(String Critic_Count) {
+    public void setCritic_Count(Integer Critic_Count) {
         this.Critic_Count = Critic_Count;
     }
 
-    public void setUser_Score(String User_Score) {
+    public void setUser_Score(Float User_Score) {
         this.User_Score = User_Score;
     }
 
-    public void setUser_Count(String User_Count) {
+    public void setUser_Count(Integer User_Count) {
         this.User_Count = User_Count;
     }
 
@@ -189,5 +241,6 @@ public class VideoGame {
     public void setRating(String Rating) {
         this.Rating = Rating;
     }
+   
     
 }

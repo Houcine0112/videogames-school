@@ -36,6 +36,11 @@ public class ListVideoGames extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String sortedBy = "Id";
+        if (request.getParameter("sortedBy") != null) {
+                sortedBy = request.getParameter("sortedBy");
+        }
+        
         int page = 1;
         int nb_elem = 10;
         if (request.getParameter("page") != null) {
@@ -53,7 +58,7 @@ public class ListVideoGames extends HttpServlet {
         
         response.setContentType("text/json;charset=UTF-8");
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
-        List<VideoGame> videoGames = videoGamesRepository.getVideoGames().subList(nb_elem*(page-1), page*nb_elem);
+        List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortedBy).subList(nb_elem*(page-1), page*nb_elem);
         
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
