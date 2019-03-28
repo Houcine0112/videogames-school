@@ -32,10 +32,9 @@
 </div>
 <div class="table-responsive">
     <table  class="table table-sm table-striped">
-        <thead id="maintable" class="thead-dark">
+        <thead id="mainheader" class="thead-dark">
         </thead>
         <tbody id='mytable'>
-
         </tbody>
     </table>
 </div>
@@ -64,22 +63,26 @@
     ];
     var page_acuel = 1;
     var nb_lines = 16719;
-    var nb_lines_page = 15;
+    var nb_lines_page = 10;
     var sortby = "id";
+    var even_click = false;
     function sort(event) {
-        var clicks = $(this).data('clicks');
         var param = event.data.sortby;
+        sortby = param;
         //var param = s;
-
-        if (clicks) {
-            a({data: {sortby: param + "_rev"}});
+        insert_table_headers();
+        if (even_click) {
+            insert_table_body({data: {sortby: param + "_rev"}});
+            $("#col-" + param).append("▲");
+            even_click = false;
         } else {
-            a({data: {sortby: param}});
+            insert_table_body({data: {sortby: param}});
+            $("#col-" + param).append("▼");
+            even_click = true;
         }
-        $(this).data("clicks", !clicks);
     }
 
-    function a(event) {
+    function insert_table_body(event) {
         if (event.data.sortby === undefined) {
             event.data.sortby = sortby;
         }
@@ -102,7 +105,7 @@
                     $("#mytable").append(
                         "<tr><th scope=\"row\">" +
                         data.id +
-                        "</th><td>" +
+                        "</th><td >" +
                         data.Name +
                         "</td><td>" +
                         data.Platform +
@@ -142,22 +145,26 @@
             });
     }
 
-    $(document).ready(function () {
-
+    function insert_table_headers(){
+        $("#mainheader").empty();
         $.each(headers, function(index,data) {
-            $("#maintable")
+            $("#mainheader")
                 .append("<th scope='col' id='col-"+data+"' style='cursor: pointer;'>"+data+"</th>");
             $("#col-" + data)
                 .click({sortby: data},sort);
-            //.append("<th onclick='sort(\""+data+"\")' scope='col' id='"+data+"'>"+data+"</th>")
-
-            ;
         });
+    }
 
-        a({data: {page: 0}});
+    $(document).ready(function () {
+        insert_table_headers();
 
-        $("#buttonbefore").click({page: -1}, a);
-        $("#buttonafter").click({page: 1}, a);
+        $("#buttonbefore").click({page: -1}, insert_table_body);
+        $("#buttonafter").click({page: 1}, insert_table_body);
+
+
+        insert_table_body({data: {page: 0}});
+
+
 
     });
 </script>
