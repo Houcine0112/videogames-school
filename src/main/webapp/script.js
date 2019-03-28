@@ -17,14 +17,29 @@ var headers = [
     //"Developer",
     //"Rating"
 ];
+
 var params = {
     page         : 1,
     page_rows_nb : 10,
     sortBy       :"id",
     reverse      :false
 };
+
+if(window.location.search !== ""){
+    //var js = JSON.parse('{"' + decodeURI(window.location.search.replace(/&/g, "\",\"").replace(/=/g,"\":\"")) + '"}');
+}
+
 var nb_lines = 16719;
-var url = $.param(params);
+var url_params = $.param(params);
+var url_without_params = window.location.origin + window.location.pathname;
+var url_with_params = url_without_params +"?"+ url_params;
+
+console.log(url_params);
+console.log(url_without_params);
+console.log(url_with_params);
+console.log(window.location.href);
+console.log(window.location.search === "");
+
 function sort(){
     insert_table_headers();
     params.page = 1;
@@ -76,6 +91,7 @@ function insert_table_headers(){
 $(document).ready(function(){
     insert_table_headers();
     insert_table_body();
+
     $("#next-page").click(function(){
         if(params.page + 1 < nb_lines/params.page_rows_nb){
             params.page+=1;
@@ -83,11 +99,12 @@ $(document).ready(function(){
         }
         insert_table_body();
     });
+
     $("#previous-page").click(function(){
         if(params.page - 1 > 0){
             params.page+=-1;
             url = $.param(params);
-            console.log(window.location =+"?"+url);
+            console.log(window.location +"?"+url);
         }
         insert_table_body();
     });

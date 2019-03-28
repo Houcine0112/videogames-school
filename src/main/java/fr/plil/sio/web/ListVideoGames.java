@@ -34,7 +34,7 @@ public class ListVideoGames extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-
+        response.setContentType("application/json;charset=UTF-8");
         // default values if not assigned
         String sortBy = "id";
         Boolean reverse = false;
@@ -54,9 +54,7 @@ public class ListVideoGames extends HttpServlet {
             }
         }
         
-        
-        
-        response.setContentType("text/json;charset=UTF-8");
+
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
         List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortBy, reverse).subList(page_rows_nb*(page-1), page*page_rows_nb);
         
