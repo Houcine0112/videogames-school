@@ -61,46 +61,32 @@
         "Developer",
         "Rating"
     ];
-    var page_acuel = 1;
+    var page_actuelle = 1;
     var nb_lines = 16719;
     var nb_lines_page = 10;
     var sortby = "id";
-    var even_click = false;
-    function sort(event) {
-        var param = event.data.sortby;
-        sortby = param;
-        //var param = s;
+    var reverse = false;
+
+
+    function sort(){
         insert_table_headers();
-        if (even_click) {
-            insert_table_body({data: {sortby: param + "_rev"}});
-            $("#col-" + param).append("▲");
-            even_click = false;
+        page_actuelle = 1;
+        if (reverse) {
+            $("#col-" + sortby).append("▼");
+            reverse = false;
         } else {
-            insert_table_body({data: {sortby: param}});
-            $("#col-" + param).append("▼");
-            even_click = true;
+            $("#col-" + sortby).append("▲");
+            reverse=true;
         }
+        insert_table_body();
     }
 
-    function insert_table_body(event) {
-        if (event.data.sortby === undefined) {
-            event.data.sortby = sortby;
-        }
-        if (event.data.page === undefined) {
-            event.data.page = page_acuel;
-        } else {
-            if (page_acuel + event.data.page > 0 && page_acuel + event.data.page < nb_lines / nb_lines_page) {
-                page_acuel += event.data.page;
-            } else {
-                page_acuel = 1;
-            }
-        }
-
-        $.ajax("/api/videoGames/all?sortedBy=" + event.data.sortby + "&page=" + page_acuel + "&nb_lines_page=" + nb_lines_page)
+    function insert_table_body() {
+        $.ajax("/api/videoGames/all?sortedBy=" + sortby + "&rev="+  reverse + "&page=" + page_actuelle + "&nb_elem=" + nb_lines_page)
             .done(function (arg) {
                 $("#mytable").empty();
                 $("#page").empty();
-                $("#page").append("<h1 class=\"display-4 \" > Page : " + page_acuel + "</h1>");
+                $("#page").append("<h1 class=\"display-4 \" > Page : " + page_actuelle + "</h1>");
                 $.each(arg, function (index, data) {
                     $("#mytable").append(
                         "<tr><th scope=\"row\">" +
@@ -151,21 +137,29 @@
             $("#mainheader")
                 .append("<th scope='col' id='col-"+data+"' style='cursor: pointer;'>"+data+"</th>");
             $("#col-" + data)
-                .click({sortby: data},sort);
+                .click(function(){
+                    sortby = data;
+                    sort();
+                });
         });
     }
 
+    $("#buttonbefore").click(function(){
+        if(page_actuelle - 1 > 0){
+            page_actuelle+=-1;
+        }
+        insert_table_body();
+    });
+    $("#buttonafter").click(function(){
+        if(page_actuelle + 1 < nb_lines/nb_lines_page){
+            page_actuelle+=1;
+        }
+        insert_table_body();
+    });
+
     $(document).ready(function () {
         insert_table_headers();
-
-        $("#buttonbefore").click({page: -1}, insert_table_body);
-        $("#buttonafter").click({page: 1}, insert_table_body);
-
-
-        insert_table_body({data: {page: 0}});
-
-
-
+        insert_table_body();
     });
 </script>
 </body>
