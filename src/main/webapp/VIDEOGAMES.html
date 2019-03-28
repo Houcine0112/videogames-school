@@ -15,152 +15,32 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 </head>
+
 <body>
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item">
-            <button id="buttonbefore" type="button" class="page-link">Before</button>
+            <button id="previous-page" type="button" class="page-link">Before</button>
         </li>
         <li class="page-item">
-            <button id="buttonafter" type="button" class="page-link">After</button>
+            <button id="next-page" type="button" class="page-link">After</button>
         </li>
     </ul>
 </nav>
+
 <div id="page">
 
 </div>
+
 <div class="table-responsive">
     <table  class="table table-sm table-striped">
         <thead id="mainheader" class="thead-dark">
         </thead>
-        <tbody id='mytable'>
+        <tbody id='mainbody'>
         </tbody>
     </table>
 </div>
-
-
-<script>
-
-    var headers = [
-        "id",
-        "Name",
-        "Platform",
-        "Year_of_Release",
-        "Genre",
-        "Publisher",
-        "NA_Sales",
-        "EU_Sales",
-        "JP_Sales",
-        "Other_Sales",
-        "Global_Sales",
-        "Critic_Score",
-        "Critic_Count",
-        "User_Score",
-        "User_Count",
-        "Developer",
-        "Rating"
-    ];
-    var page_actuelle = 1;
-    var nb_lines = 16719;
-    var nb_lines_page = 10;
-    var sortby = "id";
-    var reverse = false;
-
-
-    function sort(){
-        insert_table_headers();
-        page_actuelle = 1;
-        if (reverse) {
-            $("#col-" + sortby).append("▲");
-            reverse = false;
-        } else {
-            $("#col-" + sortby).append("▼");
-            reverse=true;
-        }
-        insert_table_body();
-    }
-
-    function insert_table_body() {
-        $.ajax("/api/videoGames/all?sortedBy=" + sortby + "&rev="+  reverse + "&page=" + page_actuelle + "&nb_elem=" + nb_lines_page)
-            .done(function (arg) {
-                $("#mytable").empty();
-                $("#page").empty();
-                $("#page").append("<h1 class=\"display-4 \" > Page : " + page_actuelle + "</h1>");
-                $.each(arg, function (index, data) {
-                    $("#mytable").append(
-                        "<tr><th scope=\"row\">" +
-                        data.id +
-                        "</th><td >" +
-                        data.Name +
-                        "</td><td>" +
-                        data.Platform +
-                        "</td><td>" +
-                        data.Year_of_Release +
-                        "</td><td>" +
-                        data.Genre +
-                        "</td><td>" +
-                        data.Publisher +
-                        "</td><td>" +
-                        data.NA_Sales +
-                        "</td><td>" +
-                        data.EU_Sales +
-                        "</td><td>" +
-                        data.JP_Sales +
-                        "</td><td>" +
-                        data.Other_Sales +
-                        "</td><td>" +
-                        data.Global_Sales +
-                        "</td><td>" +
-                        data.Critic_Score +
-                        "</td><td>" +
-                        data.Critic_Count +
-                        "</td><td>" +
-                        data.User_Score +
-                        "</td><td>" +
-                        data.User_Count +
-                        "</td><td>" +
-                        data.Developer +
-                        "</td><td>" +
-                        data.Rating +
-                        "</td></tr>");
-                });
-            })
-            .fail(function () {
-                alert("error");
-            });
-    }
-
-    function insert_table_headers(){
-        $("#mainheader").empty();
-        $.each(headers, function(index,data) {
-            $("#mainheader")
-                .append("<th scope='col' id='col-"+data+"' style='cursor: pointer;'>"+data+"</th>");
-            $("#col-" + data)
-                .click(function(){
-                    sortby = data;
-                    sort();
-                });
-        });
-    }
-
-    $("#buttonbefore").click(function(){
-        if(page_actuelle - 1 > 0){
-            page_actuelle+=-1;
-        }
-        insert_table_body();
-    });
-    $("#buttonafter").click(function(){
-        if(page_actuelle + 1 < nb_lines/nb_lines_page){
-            page_actuelle+=1;
-        }
-        insert_table_body();
-    });
-
-    $(document).ready(function () {
-        insert_table_headers();
-        insert_table_body();
-    });
-</script>
 </body>
 </html>

@@ -29,31 +29,28 @@ public class ListVideoGames extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        String sortedBy = "id";
-        if (request.getParameter("sortedBy") != null) {
-                sortedBy = request.getParameter("sortedBy");
-        }
-        Boolean rev = false;
-        if (request.getParameter("rev") != null) {
-            rev = Boolean.parseBoolean(request.getParameter("rev"));
-        }
+            throws IOException {
+
+        // default values if not assigned
+        String sortBy = "id";
+        Boolean reverse = false;
         int page = 1;
-        int nb_elem = 10;
-        if (request.getParameter("page") != null) {
-            if(Integer.parseInt(request.getParameter("page"))<1673){
-                page = Integer.parseInt(request.getParameter("page"));
+        int page_rows_nb = 10;
+
+        if (request.getParameter("sortBy") != null) sortBy = request.getParameter("sortBy");
+        if (request.getParameter("reverse") != null) reverse = Boolean.parseBoolean(request.getParameter("reverse"));
+        if (request.getParameter("page_rows_nb") != null) {
+            if(Integer.parseInt(request.getParameter("page_rows_nb"))<16719){
+                page_rows_nb = Integer.parseInt(request.getParameter("page_rows_nb"));
             }
         }
-        if (request.getParameter("nb_elem") != null) {
-            if(Integer.parseInt(request.getParameter("nb_elem"))<10000){
-                nb_elem = Integer.parseInt(request.getParameter("nb_elem"));
+        if (request.getParameter("page") != null) {
+            if (Integer.parseInt(request.getParameter("page")) < 16719/page_rows_nb) {
+                page = Integer.parseInt(request.getParameter("page"));
             }
         }
         
@@ -61,7 +58,7 @@ public class ListVideoGames extends HttpServlet {
         
         response.setContentType("text/json;charset=UTF-8");
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
-        List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortedBy, rev).subList(nb_elem*(page-1), page*nb_elem);
+        List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortBy, reverse).subList(page_rows_nb*(page-1), page*page_rows_nb);
         
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
