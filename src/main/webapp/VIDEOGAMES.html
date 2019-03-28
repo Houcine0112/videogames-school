@@ -72,10 +72,10 @@
         insert_table_headers();
         page_actuelle = 1;
         if (reverse) {
-            $("#col-" + sortby).append("▼");
+            $("#col-" + sortby).append("▲");
             reverse = false;
         } else {
-            $("#col-" + sortby).append("▲");
+            $("#col-" + sortby).append("▼");
             reverse=true;
         }
         insert_table_body();
