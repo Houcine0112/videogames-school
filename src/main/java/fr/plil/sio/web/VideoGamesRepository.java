@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package fr.plil.sio.web;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,7 +14,7 @@ import java.util.List;
  * @author lelaidou
  */
 public class VideoGamesRepository {
-    private List<VideoGame> videoGames = new ArrayList<VideoGame>();
+    private List<VideoGame> videoGames = new ArrayList<>();
 
     public boolean add(VideoGame videoGame) {
         return videoGames.add(videoGame);
@@ -25,14 +24,14 @@ public class VideoGamesRepository {
         return videoGames;
     }
     public List<VideoGame> getSortedBy(String sortBy){
-        List<VideoGame> list_sorted = new ArrayList<VideoGame>(videoGames);
+        List<VideoGame> list_sorted = new ArrayList<>(videoGames);
         // cratorsomparators
         Comparator<VideoGame> compareById = (VideoGame v1, VideoGame v2) -> v1.getId().compareTo(v2.getId());
-        Comparator<VideoGame> compareByName = (VideoGame v1, VideoGame v2) -> v1.getName().compareTo(v2.getName());
-        Comparator<VideoGame> compareByPlatform = (VideoGame v1, VideoGame v2) -> v1.getPlatform().compareTo(v2.getPlatform());
+        Comparator<VideoGame> compareByName = (VideoGame v1, VideoGame v2) -> v1.getName().toUpperCase().compareTo(v2.getName().toUpperCase());
+        Comparator<VideoGame> compareByPlatform = (VideoGame v1, VideoGame v2) -> v1.getPlatform().toUpperCase().compareTo(v2.getPlatform().toUpperCase());
         Comparator<VideoGame> compareByYear_of_Release = (VideoGame v1, VideoGame v2) -> v1.getYear_of_Release().compareTo(v2.getYear_of_Release());
-        Comparator<VideoGame> compareByGenre = (VideoGame v1, VideoGame v2) -> v1.getGenre().compareTo(v2.getGenre());
-        Comparator<VideoGame> compareByPublisher = (VideoGame v1, VideoGame v2) -> v1.getPublisher().compareTo(v2.getPublisher());
+        Comparator<VideoGame> compareByGenre = (VideoGame v1, VideoGame v2) -> v1.getGenre().toUpperCase().compareTo(v2.getGenre().toUpperCase());
+        Comparator<VideoGame> compareByPublisher = (VideoGame v1, VideoGame v2) -> v1.getPublisher().toUpperCase().compareTo(v2.getPublisher().toUpperCase());
         Comparator<VideoGame> compareByNA_Sales = (VideoGame v1, VideoGame v2) -> v1.getNA_Sales().compareTo(v2.getNA_Sales());
         Comparator<VideoGame> compareByEU_Sales = (VideoGame v1, VideoGame v2) -> v1.getEU_Sales().compareTo(v2.getEU_Sales());
         Comparator<VideoGame> compareByJP_Sales = (VideoGame v1, VideoGame v2) -> v1.getJP_Sales().compareTo(v2.getJP_Sales());
@@ -42,8 +41,8 @@ public class VideoGamesRepository {
         Comparator<VideoGame> compareByCritic_Count = (VideoGame v1, VideoGame v2) -> v1.getCritic_Count().compareTo(v2.getCritic_Count());
         Comparator<VideoGame> compareByUser_Score = (VideoGame v1, VideoGame v2) -> v1.getUser_Score().compareTo(v2.getUser_Score());
         Comparator<VideoGame> compareByUser_Count = (VideoGame v1, VideoGame v2) -> v1.getUser_Count().compareTo(v2.getUser_Count());
-        Comparator<VideoGame> compareByDeveloper = (VideoGame v1, VideoGame v2) -> v1.getDeveloper().compareTo(v2.getDeveloper());
-        Comparator<VideoGame> compareByRating = (VideoGame v1, VideoGame v2) -> v1.getRating().compareTo(v2.getRating());
+        Comparator<VideoGame> compareByDeveloper = (VideoGame v1, VideoGame v2) -> v1.getDeveloper().toUpperCase().compareTo(v2.getDeveloper().toUpperCase());
+        Comparator<VideoGame> compareByRating = (VideoGame v1, VideoGame v2) -> v1.getRating().toUpperCase().compareTo(v2.getRating().toUpperCase());
         switch(sortBy) {
             case "id":
               Collections.sort(list_sorted, compareById);
