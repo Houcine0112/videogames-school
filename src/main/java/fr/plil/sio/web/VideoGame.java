@@ -37,10 +37,10 @@ public class VideoGame {
 
     public VideoGame(Integer i, List<String> d) {
         id = i;
-        Name = d.get(0);
-        Platform = d.get(1);
+        Name = d.get(0).trim();
+        Platform = d.get(1).trim();
         try{
-            Year_of_Release = Integer.parseInt(d.get(2));
+            Year_of_Release = Integer.parseInt(d.get(2).trim());
         }catch (Exception e){
             Year_of_Release = 0;
         }
@@ -48,53 +48,53 @@ public class VideoGame {
         Genre = d.get(3);
         Publisher = d.get(4);
         try{
-            NA_Sales = Float.parseFloat(d.get(5));
+            NA_Sales = Float.parseFloat(d.get(5).trim());
         }catch (Exception e){
             NA_Sales = Float.parseFloat("0");
         }
         try{
-            EU_Sales = Float.parseFloat(d.get(6));
+            EU_Sales = Float.parseFloat(d.get(6).trim());
         }catch (Exception e){
             EU_Sales = Float.parseFloat("0");
         }
         try{
-            JP_Sales = Float.parseFloat(d.get(7));
+            JP_Sales = Float.parseFloat(d.get(7).trim());
         }catch (Exception e){
             JP_Sales = Float.parseFloat("0");
         }
         try{
-            Other_Sales = Float.parseFloat(d.get(8));
+            Other_Sales = Float.parseFloat(d.get(8).trim());
         }catch (Exception e){
             Other_Sales = Float.parseFloat("0");
         }
         try{
-            Global_Sales = Float.parseFloat(d.get(9));
+            Global_Sales = Float.parseFloat(d.get(9).trim());
         }catch (Exception e){
             Global_Sales = Float.parseFloat("0");
         }
         try{
-            Critic_Score = Float.parseFloat(d.get(10));
+            Critic_Score = Float.parseFloat(d.get(10).trim());
         }catch (Exception e){
             Critic_Score = Float.parseFloat("0");
         }
         try{
-            Critic_Count = Integer.parseInt(d.get(11));
+            Critic_Count = Integer.parseInt(d.get(11).trim());
         }catch (Exception e){
             Critic_Count = 0;
         }
         try{
-            User_Score = Float.parseFloat(d.get(12));
+            User_Score = Float.parseFloat(d.get(12).trim());
         }catch (Exception e){
             User_Score = Float.parseFloat("0");
         }
         try{
-            User_Count = Integer.parseInt(d.get(13));
+            User_Count = Integer.parseInt(d.get(13).trim());
         }catch (Exception e){
             User_Count = 0;
         }
    
-        Developer = d.get(14);
-        Rating = d.get(15);
+        Developer = d.get(14).trim();
+        Rating = d.get(15).trim();
     }
 
     public Integer getId() {
