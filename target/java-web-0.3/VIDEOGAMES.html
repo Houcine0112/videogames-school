@@ -58,10 +58,18 @@ $( document ).ready(function() {
     a({data: {param: 0}});
     $("#buttonbefore").click({param: -1},a);
     $("#buttonafter").click({param: 1 },a);
-    
+    $('#determine').click(function() {
+      var clicks = $(this).data('clicks');
+      if (clicks) {
+         a({data: {param: 9}});
+      } else {
+         a({data: {param: -1}});
+      }
+      $(this).data("clicks", !clicks);
+    });    
     function a(event) {
         if(event.data.sortby === undefined){
-            event.data.sortby="Name";
+            event.data.sortby="EU_Sales_rev";
         }
         if (page_acuel + event.data.param > 0) {
             page_acuel += event.data.param;
