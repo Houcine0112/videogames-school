@@ -23,7 +23,8 @@ public class VideoGamesRepository {
     public List<VideoGame> getVideoGames() {
         return videoGames;
     }
-    public List<VideoGame> getSortedBy(String sortBy, boolean rev){
+    
+    public List<VideoGame> getSortedBy(String sortBy, boolean reverse){
         List<VideoGame> list_sorted = new ArrayList<>(videoGames);
         // cratorsomparators
         Comparator<VideoGame> compareById = (VideoGame v1, VideoGame v2) -> v1.getId().compareTo(v2.getId());
@@ -45,123 +46,55 @@ public class VideoGamesRepository {
         Comparator<VideoGame> compareByRating = (VideoGame v1, VideoGame v2) -> v1.getRating().toUpperCase().compareTo(v2.getRating().toUpperCase());
         switch(sortBy) {
             case "id":
-              if(!rev){
-                  Collections.sort(list_sorted, compareById);
-              } else {
-                  Collections.sort(list_sorted, compareById.reversed());
-              }
-              break;
+                list_sorted.sort(!reverse ? compareById : compareById.reversed());
+                break;
             case "Name":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByName);
-                } else {
-                    Collections.sort(list_sorted, compareByName.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByName : compareByName.reversed());
               break;
             case "Platform":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByPlatform);
-                } else {
-                    Collections.sort(list_sorted, compareByPlatform.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByPlatform : compareByPlatform.reversed());
               break;
             case "Year_of_Release":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByYear_of_Release);
-                } else {
-                    Collections.sort(list_sorted, compareByYear_of_Release.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByYear_of_Release : compareByYear_of_Release.reversed());
               break;
             case "Genre":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByGenre);
-                } else {
-                    Collections.sort(list_sorted, compareByGenre.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByGenre : compareByGenre.reversed());
               break;
             case "Publisher":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByPublisher);
-                } else {
-                    Collections.sort(list_sorted, compareByPublisher.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByPublisher : compareByPublisher.reversed());
               break;
             case "NA_Sales":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByNA_Sales);
-                } else {
-                    Collections.sort(list_sorted, compareByNA_Sales.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByNA_Sales : compareByNA_Sales.reversed());
               break;
             case "EU_Sales":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByEU_Sales);
-                } else {
-                    Collections.sort(list_sorted, compareByEU_Sales.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByEU_Sales : compareByEU_Sales.reversed());
               break;
             case "JP_Sales":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByJP_Sales);
-                } else {
-                    Collections.sort(list_sorted, compareByJP_Sales.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByJP_Sales : compareByJP_Sales.reversed());
               break;
             case "Other_Sales":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByOther_Sales);
-                } else {
-                    Collections.sort(list_sorted, compareByOther_Sales.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByOther_Sales : compareByOther_Sales.reversed());
               break;
             case "Global_Sales":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByGlobal_Sales);
-                } else {
-                    Collections.sort(list_sorted, compareByGlobal_Sales.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByGlobal_Sales : compareByGlobal_Sales.reversed());
               break;
             case "Critic_Score":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByCritic_Score);
-                } else {
-                    Collections.sort(list_sorted, compareByCritic_Score.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByCritic_Score : compareByCritic_Score.reversed());
               break;
             case "Critic_Count":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByCritic_Count);
-                } else {
-                    Collections.sort(list_sorted, compareByCritic_Count.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByCritic_Count : compareByCritic_Count.reversed());
               break;
             case "User_Score":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByUser_Score);
-                } else {
-                    Collections.sort(list_sorted, compareByUser_Score.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByUser_Score: compareByUser_Score.reversed());
               break;
             case "User_Count":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByUser_Count);
-                } else {
-                    Collections.sort(list_sorted, compareByUser_Count.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByUser_Count : compareByUser_Count.reversed());
               break;
             case "Developer":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByDeveloper);
-                } else {
-                    Collections.sort(list_sorted, compareByDeveloper.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByDeveloper : compareByDeveloper.reversed());
               break;
             case "Rating":
-                if(!rev){
-                    Collections.sort(list_sorted, compareByRating);
-                } else {
-                    Collections.sort(list_sorted, compareByRating.reversed());
-                }
+                list_sorted.sort(!reverse ? compareByRating : compareByRating.reversed());
               break;
             default:
         }

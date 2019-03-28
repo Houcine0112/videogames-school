@@ -5,11 +5,7 @@
  */
 package fr.plil.sio.web;
 
-import static java.lang.Float.NaN;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -164,14 +160,14 @@ public class VideoGame {
     public String getRating() {
         return Rating;
     }
-    
 
     public List<String> getData() {
-        return Arrays.asList(Name,Platform, Year_of_Release.toString(),
-                Genre,Publisher, NA_Sales.toString(),EU_Sales.toString(),
-                JP_Sales.toString(),Other_Sales.toString(),Global_Sales.toString(),
-                Critic_Score.toString(),Critic_Count.toString(),User_Score.toString(),User_Count.toString()
-                ,Developer,Rating);
+        return Arrays.asList(
+                Name,Platform, Year_of_Release.toString(), Genre,Publisher,
+                NA_Sales.toString(),EU_Sales.toString(), JP_Sales.toString(),
+                Other_Sales.toString(),Global_Sales.toString(), Critic_Score.toString(),
+                Critic_Count.toString(),User_Score.toString(),User_Count.toString(),
+                Developer,Rating);
     }
 
     public void setId(Integer id) {

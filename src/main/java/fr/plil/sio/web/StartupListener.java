@@ -33,7 +33,7 @@ public class StartupListener implements ServletContextListener {
     }
     
     public List<List<String>> readCsv(){
-        List<List<String>> records = new ArrayList<List<String>>();
+        List<List<String>> records = new ArrayList<>();
         try{
             CSVReader csvReader = new CSVReader(new FileReader("video-games.csv"));
             String[] values = null;
