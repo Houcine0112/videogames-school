@@ -48,54 +48,105 @@ public class VideoGamesRepository {
             case "id":
               Collections.sort(list_sorted, compareById);
               break;
+            case "id_rev":
+                Collections.sort(list_sorted, compareById.reversed());
+                break;
             case "Name":
               Collections.sort(list_sorted, compareByName);
               break;
+            case "Name_rev":
+                Collections.sort(list_sorted, compareByName.reversed());
+                break;
             case "Platform":
               Collections.sort(list_sorted, compareByPlatform);
               break;
+            case "Platform_rev":
+                Collections.sort(list_sorted, compareByPlatform.reversed());
+                break;
             case "Year_of_Release":
               Collections.sort(list_sorted, compareByYear_of_Release);
               break;
+            case "Year_of_Release_rev":
+                Collections.sort(list_sorted, compareByYear_of_Release.reversed());
+                break;
             case "Genre":
               Collections.sort(list_sorted, compareByGenre);
               break;
+            case "Genre_rev":
+                Collections.sort(list_sorted, compareByGenre.reversed());
+                break;
             case "Publisher":
               Collections.sort(list_sorted, compareByPublisher);
               break;
+            case "Publisher_rev":
+                Collections.sort(list_sorted, compareByPublisher.reversed());
+                break;
             case "NA_Sales":
               Collections.sort(list_sorted, compareByNA_Sales);
               break;
+            case "NA_Sales_rev":
+                Collections.sort(list_sorted, compareByNA_Sales.reversed());
+                break;
             case "EU_Sales":
               Collections.sort(list_sorted, compareByEU_Sales);
               break;
+            case "EU_Sales_rev":
+                Collections.sort(list_sorted, compareByEU_Sales.reversed());
+                break;
             case "JP_Sales":
               Collections.sort(list_sorted, compareByJP_Sales);
               break;
+            case "JP_Sales_rev":
+                Collections.sort(list_sorted, compareByJP_Sales.reversed());
+                break;
             case "Other_Sales":
               Collections.sort(list_sorted, compareByOther_Sales);
               break;
+            case "Other_Sales_rev":
+                Collections.sort(list_sorted, compareByOther_Sales.reversed());
+                break;
             case "Global_Sales":
               Collections.sort(list_sorted, compareByGlobal_Sales);
               break;
+            case "Global_Sales_rev":
+                Collections.sort(list_sorted, compareByGlobal_Sales.reversed());
+                break;
             case "Critic_Score":
               Collections.sort(list_sorted, compareByCritic_Score);
               break;
+            case "Critic_Score_rev":
+                Collections.sort(list_sorted, compareByCritic_Score.reversed());
+                break;
             case "Critic_Count":
               Collections.sort(list_sorted, compareByCritic_Count);
               break;
+            case "Critic_Count_rev":
+                Collections.sort(list_sorted, compareByCritic_Count.reversed());
+                break;
             case "User_Score":
               Collections.sort(list_sorted, compareByUser_Score);
               break;
+            case "User_Score_rev":
+                Collections.sort(list_sorted, compareByUser_Score.reversed());
+                break;
             case "User_Count":
               Collections.sort(list_sorted, compareByUser_Count);
               break;
+            case "User_Count_rev":
+                Collections.sort(list_sorted, compareByUser_Count.reversed());
+                break;
             case "Developer":
               Collections.sort(list_sorted, compareByDeveloper);
               break;
+            case "Developer_rev":
+                Collections.sort(list_sorted, compareByDeveloper.reversed());
+                break;
             case "Rating":
               Collections.sort(list_sorted, compareByRating);
               break;
+            case "Rating_rev":
+                Collections.sort(list_sorted, compareByRating.reversed());
+                break;
             default:
         }
         return list_sorted;
