@@ -1,3 +1,5 @@
+var dir = window.location.pathname;
+
 var headers = [
     "id",
     "Name",
@@ -18,6 +20,8 @@ var headers = [
     //"Rating"
 ];
 
+
+// default params
 var params = {
     page         : 1,
     page_rows_nb : 10,
@@ -25,25 +29,31 @@ var params = {
     reverse      :false
 };
 
-if(window.location.search !== ""){
-    //var js = JSON.parse('{"' + decodeURI(window.location.search.replace(/&/g, "\",\"").replace(/=/g,"\":\"")) + '"}');
+// change params case existe in the link
+var params_url_format = window.location.search.substring(1, window.location.search.length);
+if(params_url_format !== ""){
+    params = JSON
+        .parse('{"' + decodeURI(params_url_format
+            .replace(/&/g, "\",\"")             // replace '&' with ','
+            .replace(/=/g,"\":\"")) + '"}'      // replace '=' with ':'
+        );
 }
 
 var nb_lines = 16719;
-var url_params = $.param(params);
-var url_without_params = window.location.origin + window.location.pathname;
-var url_with_params = url_without_params +"?"+ url_params;
 
-console.log(url_params);
-console.log(url_without_params);
-console.log(url_with_params);
-console.log(window.location.href);
-console.log(window.location.search === "");
+
+function update_url() {
+    params.page_rows_nb = parseInt(params.page_rows_nb);
+    params.page = parseInt(params.page);
+    url_params = $.param(params);
+    window.history.pushState('', 'TableauxDnamic', dir + "?" + url_params);
+    //window.location.replace(dir + dir +"?"+ url_params);
+}
+
 
 function sort(){
     insert_table_headers();
     params.page = 1;
-    url = $.param(params);
     if (params.reverse) {
         $("#col-" + params.sortBy).append("▲");
         params.reverse = false;
@@ -51,6 +61,7 @@ function sort(){
         $("#col-" + params.sortBy).append("▼");
         params.reverse=true;
     }
+    update_url();
     insert_table_body();
 }
 
@@ -89,13 +100,14 @@ function insert_table_headers(){
 }
 
 $(document).ready(function(){
+    update_url();
     insert_table_headers();
     insert_table_body();
 
     $("#next-page").click(function(){
         if(params.page + 1 < nb_lines/params.page_rows_nb){
             params.page+=1;
-            url = $.param(params);
+            update_url();
         }
         insert_table_body();
     });
@@ -103,8 +115,7 @@ $(document).ready(function(){
     $("#previous-page").click(function(){
         if(params.page - 1 > 0){
             params.page+=-1;
-            url = $.param(params);
-            console.log(window.location +"?"+url);
+            update_url();
         }
         insert_table_body();
     });
