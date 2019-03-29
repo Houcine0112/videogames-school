@@ -33,17 +33,17 @@ public class StartupListener implements ServletContextListener {
         event.getServletContext().setAttribute("videoGamesRepository", videoGamesRepository);
     }
 
-    public List<List<String>> readCsv() {
+    private List<List<String>> readCsv() {
         List<List<String>> records = new ArrayList<>();
         try {
             CSVReader csvReader = new CSVReader(new FileReader("video-games.csv"));
-            String[] values = null;
-            String[] header = csvReader.readNext();
+            String[] values;
+            csvReader.readNext(); // skip header
             while ((values = csvReader.readNext()) != null) {
                 records.add(Arrays.asList(values));
             }
         } catch (Exception e) {
-
+            System.out.println("Not able to read the CSV");
         }
         return records;
     }

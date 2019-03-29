@@ -11,26 +11,26 @@ import java.util.List;
 /**
  * @author lelaidou
  */
-public class VideoGame {
+class VideoGame {
     private Integer id;
     private String Name;
     private String Platform;
     private Integer Year_of_Release;
     private String Genre;
     private String Publisher;
-    private Float NA_Sales;
-    private Float EU_Sales;
-    private Float JP_Sales;
-    private Float Other_Sales;
-    private Float Global_Sales;
-    private Float Critic_Score;
+    private Double NA_Sales;
+    private Double EU_Sales;
+    private Double JP_Sales;
+    private Double Other_Sales;
+    private Double Global_Sales;
+    private Double Critic_Score;
     private Integer Critic_Count;
-    private Float User_Score;
+    private Double User_Score;
     private Integer User_Count;
     private String Developer;
     private String Rating;
 
-    public VideoGame(Integer i, List<String> d) {
+    VideoGame(Integer i, List<String> d) {
         id = i;
         Name = d.get(0).trim();
         Platform = d.get(1).trim();
@@ -43,34 +43,34 @@ public class VideoGame {
         Genre = d.get(3);
         Publisher = d.get(4);
         try {
-            NA_Sales = Float.parseFloat(d.get(5).trim());
+            NA_Sales = Double.parseDouble(d.get(5).trim());
         } catch (Exception e) {
-            NA_Sales = Float.parseFloat("0");
+            NA_Sales = 0.;
         }
         try {
-            EU_Sales = Float.parseFloat(d.get(6).trim());
+            EU_Sales = Double.parseDouble(d.get(6).trim());
         } catch (Exception e) {
-            EU_Sales = Float.parseFloat("0");
+            EU_Sales = 0.;
         }
         try {
-            JP_Sales = Float.parseFloat(d.get(7).trim());
+            JP_Sales = Double.parseDouble(d.get(7).trim());
         } catch (Exception e) {
-            JP_Sales = Float.parseFloat("0");
+            JP_Sales = 0.;
         }
         try {
-            Other_Sales = Float.parseFloat(d.get(8).trim());
+            Other_Sales = Double.parseDouble(d.get(8).trim());
         } catch (Exception e) {
-            Other_Sales = Float.parseFloat("0");
+            Other_Sales = 0.;
         }
         try {
-            Global_Sales = Float.parseFloat(d.get(9).trim());
+            Global_Sales = Double.parseDouble(d.get(9).trim());
         } catch (Exception e) {
-            Global_Sales = Float.parseFloat("0");
+            Global_Sales = 0.;
         }
         try {
-            Critic_Score = Float.parseFloat(d.get(10).trim());
+            Critic_Score = Double.parseDouble(d.get(10).trim());
         } catch (Exception e) {
-            Critic_Score = Float.parseFloat("0");
+            Critic_Score = 0.;
         }
         try {
             Critic_Count = Integer.parseInt(d.get(11).trim());
@@ -78,9 +78,9 @@ public class VideoGame {
             Critic_Count = 0;
         }
         try {
-            User_Score = Float.parseFloat(d.get(12).trim());
+            User_Score = Double.parseDouble(d.get(12).trim());
         } catch (Exception e) {
-            User_Score = Float.parseFloat("0");
+            User_Score = 0.;
         }
         try {
             User_Count = Integer.parseInt(d.get(13).trim());
@@ -92,143 +92,75 @@ public class VideoGame {
         Rating = d.get(15).trim();
     }
 
-    public Integer getId() {
+    Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
+    String getName() {
         return Name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
-    }
-
-    public String getPlatform() {
+    String getPlatform() {
         return Platform;
     }
 
-    public void setPlatform(String Platform) {
-        this.Platform = Platform;
-    }
-
-    public Integer getYear_of_Release() {
+    Integer getYear_of_Release() {
         return Year_of_Release;
     }
 
-    public void setYear_of_Release(Integer Year_of_Release) {
-        this.Year_of_Release = Year_of_Release;
-    }
-
-    public String getGenre() {
+    String getGenre() {
         return Genre;
     }
 
-    public void setGenre(String Genre) {
-        this.Genre = Genre;
-    }
-
-    public String getPublisher() {
+    String getPublisher() {
         return Publisher;
     }
 
-    public void setPublisher(String Publisher) {
-        this.Publisher = Publisher;
-    }
-
-    public Float getNA_Sales() {
+    Double getNA_Sales() {
         return NA_Sales;
     }
 
-    public void setNA_Sales(Float NA_Sales) {
-        this.NA_Sales = NA_Sales;
-    }
-
-    public Float getEU_Sales() {
+    Double getEU_Sales() {
         return EU_Sales;
     }
 
-    public void setEU_Sales(Float EU_Sales) {
-        this.EU_Sales = EU_Sales;
-    }
-
-    public Float getJP_Sales() {
+    Double getJP_Sales() {
         return JP_Sales;
     }
 
-    public void setJP_Sales(Float JP_Sales) {
-        this.JP_Sales = JP_Sales;
-    }
-
-    public Float getOther_Sales() {
+    Double getOther_Sales() {
         return Other_Sales;
     }
 
-    public void setOther_Sales(Float Other_Sales) {
-        this.Other_Sales = Other_Sales;
-    }
-
-    public Float getGlobal_Sales() {
+    Double getGlobal_Sales() {
         return Global_Sales;
     }
 
-    public void setGlobal_Sales(Float Global_Sales) {
-        this.Global_Sales = Global_Sales;
-    }
-
-    public Float getCritic_Score() {
+    Double getCritic_Score() {
         return Critic_Score;
     }
 
-    public void setCritic_Score(Float Critic_Score) {
-        this.Critic_Score = Critic_Score;
-    }
-
-    public Integer getCritic_Count() {
+    Integer getCritic_Count() {
         return Critic_Count;
     }
 
-    public void setCritic_Count(Integer Critic_Count) {
-        this.Critic_Count = Critic_Count;
-    }
-
-    public Float getUser_Score() {
+    Double getUser_Score() {
         return User_Score;
     }
 
-    public void setUser_Score(Float User_Score) {
-        this.User_Score = User_Score;
-    }
-
-    public Integer getUser_Count() {
+    Integer getUser_Count() {
         return User_Count;
     }
 
-    public void setUser_Count(Integer User_Count) {
-        this.User_Count = User_Count;
-    }
-
-    public String getDeveloper() {
+    String getDeveloper() {
         return Developer;
     }
 
-    public void setDeveloper(String Developer) {
-        this.Developer = Developer;
-    }
-
-    public String getRating() {
+    String getRating() {
         return Rating;
     }
 
-    public void setRating(String Rating) {
-        this.Rating = Rating;
-    }
-
-    public List<String> getData() {
+    List<String> getData() {
         return Arrays.asList(
                 Name, Platform, Year_of_Release.toString(), Genre, Publisher,
                 NA_Sales.toString(), EU_Sales.toString(), JP_Sales.toString(),
