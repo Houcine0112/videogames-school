@@ -23,7 +23,7 @@ var params = {
     page: 1,
     page_rows_nb: 10,
     sortBy: "id",
-    reverse: false
+    order_desc: false
 };
 var params_url_format = window.location.search.substring(1, window.location.search.length);
 var nb_lines = 16719;
@@ -40,7 +40,7 @@ function init_params() {
         // cast strings to the right type
         params.page_rows_nb = parseInt(params.page_rows_nb);
         params.page = parseInt(params.page);
-        params.reverse = (params.reverse === 'true');
+        params.order_desc = (params.order_desc === 'true');
     }
     // else we will keep the initial params (look global variables)
 }
@@ -50,12 +50,6 @@ function update_url() {
     window.history.pushState('', 'TableauxDnamique', dir + "?" + $.param(params));
 }
 
-function sort_table() {
-    params.page = 1; // every new sort begins in the first page
-    update_url();
-    insert_table_headers();
-    insert_table_body();
-}
 
 function insert_table_headers() {
     $("#mainTableHeader").empty();
@@ -65,19 +59,22 @@ function insert_table_headers() {
         $("#col-" + data)
             .click(function () {
                 // if we click on the same header the order change else the order is not reversed (means : ordering asc)
-                params.reverse = (params.sortBy === data ? !params.reverse : false);
+                params.order_desc = (params.sortBy === data ? !params.order_desc : false);
+                // update data and recreate the table
                 params.sortBy = data;
-                sort_table();
+                params.page = 1; // every new sort begins in the first page
+                update_url();
+                insert_table();
             });
     });
-    $("#col-" + params.sortBy).append(params.reverse ? "▼" : "▲");
+    $("#col-" + params.sortBy).append(params.order_desc ? "▼" : "▲");
 }
 
 function insert_table_body() {
     $.ajax(
         "/api/videoGames/all" +
         "?sortBy=" + params.sortBy +
-        "&reverse=" + params.reverse +
+        "&order_desc=" + params.order_desc +
         "&page=" + params.page +
         "&page_rows_nb=" + params.page_rows_nb
     )
@@ -105,11 +102,14 @@ function insert_table_body() {
         });
 }
 
+function insert_table() {
+    insert_table_headers();
+    insert_table_body();
+}
 
 $(document).ready(function () {
     init_params();
-    insert_table_headers();
-    insert_table_body();
+    insert_table();
 
     $("#next-page").click(function () {
         if (params.page + 1 < nb_lines / params.page_rows_nb) {
