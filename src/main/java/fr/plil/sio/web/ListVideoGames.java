@@ -36,12 +36,13 @@ public class ListVideoGames extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         // default values if not assigned
         String sortBy = "id";
-        Boolean reverse = false;
+        Boolean order_asc = false;
         int page = 1;
         int page_rows_nb = 10;
 
         if (request.getParameter("sortBy") != null) sortBy = request.getParameter("sortBy");
-        if (request.getParameter("reverse") != null) reverse = Boolean.parseBoolean(request.getParameter("reverse"));
+        if (request.getParameter("order_desc") != null)
+            order_asc = Boolean.parseBoolean(request.getParameter("order_desc"));
         if (request.getParameter("page_rows_nb") != null) {
             if (Integer.parseInt(request.getParameter("page_rows_nb")) < 16719) {
                 page_rows_nb = Integer.parseInt(request.getParameter("page_rows_nb"));
@@ -55,7 +56,7 @@ public class ListVideoGames extends HttpServlet {
 
 
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
-        List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortBy, reverse).subList(page_rows_nb * (page - 1), page * page_rows_nb);
+        List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortBy, order_asc).subList(page_rows_nb * (page - 1), page * page_rows_nb);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
