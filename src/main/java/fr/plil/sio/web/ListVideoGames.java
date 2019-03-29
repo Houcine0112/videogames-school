@@ -7,17 +7,16 @@ package fr.plil.sio.web;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.ServletException;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 /**
- *
  * @author lelaidou
  */
 @WebServlet(urlPatterns = {"/api/videoGames/all"})
@@ -27,7 +26,7 @@ public class ListVideoGames extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws IOException if an I/O error occurs
      */
@@ -44,29 +43,29 @@ public class ListVideoGames extends HttpServlet {
         if (request.getParameter("sortBy") != null) sortBy = request.getParameter("sortBy");
         if (request.getParameter("reverse") != null) reverse = Boolean.parseBoolean(request.getParameter("reverse"));
         if (request.getParameter("page_rows_nb") != null) {
-            if(Integer.parseInt(request.getParameter("page_rows_nb"))<16719){
+            if (Integer.parseInt(request.getParameter("page_rows_nb")) < 16719) {
                 page_rows_nb = Integer.parseInt(request.getParameter("page_rows_nb"));
             }
         }
         if (request.getParameter("page") != null) {
-            if (Integer.parseInt(request.getParameter("page")) < 16719/page_rows_nb) {
+            if (Integer.parseInt(request.getParameter("page")) < 16719 / page_rows_nb) {
                 page = Integer.parseInt(request.getParameter("page"));
             }
         }
-        
+
 
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
-        List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortBy, reverse).subList(page_rows_nb*(page-1), page*page_rows_nb);
-        
+        List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortBy, reverse).subList(page_rows_nb * (page - 1), page * page_rows_nb);
+
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        
+
         String json = gson.toJson(videoGames);
-        
+
         PrintWriter out = response.getWriter();
         out.println(json);
-        
-        
+
+
     }
 }
 

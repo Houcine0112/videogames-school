@@ -3,128 +3,137 @@
 <head>
     <meta charset="utf-8">
     <title>Json</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item"><button id="buttonbefore" type="button" class="page-link">Before</button></li>
-        <li class="page-item"><button id="buttonafter" type="button" class="page-link">After</button></li>
-      </ul>
-    </nav>
-    <div id="page">
-        
-    </div>
-    <div class="table-responsive">
-        <table class="table table-sm table-striped">
-            <thead class="thead-dark">
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Platform</th>
-                <th scope="col">Year_of_Release</th>
-                <th scope="col">Genre</th>
-                <th scope="col">Publisher</th>
-                <th scope="col">NA_Sales</th>
-                <th scope="col">EU_Sales</th>
-                <th scope="col">JP_Sales</th>
-                <th scope="col">Other_Sales</th>
-                <th scope="col">Global_Sales</th>
-                <th scope="col">Critic_Score</th>
-                <th scope="col">Critic_Count</th>
-                <th scope="col">User_Score</th>
-                <th scope="col">User_Count</th>
-                <th scope="col">Developer</th>
-                <th scope="col">Rating</th>
-            </thead>
-            <tbody id='mytable'>
-                
-            </tbody>
-        </table>
-      </div>
-    
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <button class="page-link" id="buttonbefore" type="button">Before</button>
+        </li>
+        <li class="page-item">
+            <button class="page-link" id="buttonafter" type="button">After</button>
+        </li>
+    </ul>
+</nav>
+<div id="page">
+
+</div>
+<div class="table-responsive">
+    <table class="table table-sm table-striped">
+        <thead class="thead-dark">
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Platform</th>
+        <th scope="col">Year_of_Release</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">NA_Sales</th>
+        <th scope="col">EU_Sales</th>
+        <th scope="col">JP_Sales</th>
+        <th scope="col">Other_Sales</th>
+        <th scope="col">Global_Sales</th>
+        <th scope="col">Critic_Score</th>
+        <th scope="col">Critic_Count</th>
+        <th scope="col">User_Score</th>
+        <th scope="col">User_Count</th>
+        <th scope="col">Developer</th>
+        <th scope="col">Rating</th>
+        </thead>
+        <tbody id='mytable'>
+
+        </tbody>
+    </table>
+</div>
 
 
-    
-    
-    <script>
-        
-var page_acuel = 1;
-var nb_elem = 15;
-$( document ).ready(function() {
-    a({data: {param: 0}});
-    $("#buttonbefore").click({param: -1},a);
-    $("#buttonafter").click({param: 1 },a);
-    $('#determine').click(function() {
-      var clicks = $(this).data('clicks');
-      if (clicks) {
-         a({data: {param: 9}});
-      } else {
-         a({data: {param: -1}});
-      }
-      $(this).data("clicks", !clicks);
-    });    
-    function a(event) {
-        if(event.data.sortby === undefined){
-            event.data.sortby="EU_Sales_rev";
-        }
-        if (page_acuel + event.data.param > 0) {
-            page_acuel += event.data.param;
-        } else {
-            page_acuel = 1;
-        }
-        $.ajax( "/api/videoGames/all?sortedBy="+ event.data.sortby +"&page="+ page_acuel + "&nb_elem=" + nb_elem)
-            .done(function(arg){
-                $("#mytable").empty();
-                $("#page").empty();
-                $("#page").append("<h1 class=\"display-4 \" > Page : "+ page_acuel +"</h1>");
-                $.each(arg, function(index, data) {
-                    $("#mytable").append(
-                            "<tr><th scope=\"row\">" + 
-                             data.id + 
+<script>
+
+    var page_acuel = 1;
+    var nb_elem = 15;
+    $(document).ready(function () {
+        a({data: {param: 0}});
+        $("#buttonbefore").click({param: -1}, a);
+        $("#buttonafter").click({param: 1}, a);
+        $('#determine').click(function () {
+            var clicks = $(this).data('clicks');
+            if (clicks) {
+                a({data: {param: 9}});
+            } else {
+                a({data: {param: -1}});
+            }
+            $(this).data("clicks", !clicks);
+        });
+
+        function a(event) {
+            if (event.data.sortby === undefined) {
+                event.data.sortby = "EU_Sales_rev";
+            }
+            if (page_acuel + event.data.param > 0) {
+                page_acuel += event.data.param;
+            } else {
+                page_acuel = 1;
+            }
+            $.ajax("/api/videoGames/all?sortedBy=" + event.data.sortby + "&page=" + page_acuel + "&nb_elem=" + nb_elem)
+                .done(function (arg) {
+                    $("#mytable").empty();
+                    $("#page").empty();
+                    $("#page").append("<h1 class=\"display-4 \" > Page : " + page_acuel + "</h1>");
+                    $.each(arg, function (index, data) {
+                        $("#mytable").append(
+                            "<tr><th scope=\"row\">" +
+                            data.id +
                             "</th><td>" +
-                            data.Name + 
-                            "</td><td>" + 
+                            data.Name +
+                            "</td><td>" +
                             data.Platform +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Year_of_Release +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Genre +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Publisher +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.NA_Sales +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.EU_Sales +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.JP_Sales +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Other_Sales +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Global_Sales +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Critic_Score +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Critic_Count +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.User_Score +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.User_Count +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Developer +
-                            "</td><td>" + 
+                            "</td><td>" +
                             data.Rating +
                             "</td></tr>");
+                    });
+                })
+                .fail(function () {
+                    alert("error");
                 });
-            })
-            .fail(function() {
-                alert( "error" );
-            });
-    }
-});
+        }
+    });
 </script>
 </body>
 </html>
