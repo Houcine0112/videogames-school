@@ -21,15 +21,15 @@ var headers = [
 // default GET params
 var params = {
     page: 1,
-    page_rows_nb: 10,
+    page_rows_nb: 5,
     sortBy: "id",
     order_desc: false
 };
-var params_url_format = window.location.search.substring(1, window.location.search.length);
+var params_url_format = window.location.search.substring(1, window.location.search.length); // page=1&page_rows_nb=10&sortBy=id&order_desc=false
 var nb_lines = 16719;
 
-// case the URL contains GET params
 function init_params() {
+    // case the URL contains GET params
     if (params_url_format !== "") {
         // build JSON from url params
         params = JSON
@@ -47,6 +47,7 @@ function init_params() {
 
 // case we change something in the params
 function update_url() {
+    // this updates the url without reloading the page (windows.location.replace(url))
     window.history.pushState('', 'TableauxDnamique', dir + "?" + $.param(params));
 }
 
