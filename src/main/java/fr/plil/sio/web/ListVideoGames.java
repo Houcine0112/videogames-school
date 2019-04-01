@@ -54,7 +54,6 @@ public class ListVideoGames extends HttpServlet {
             }
         }
 
-
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
         List<VideoGame> videoGames = videoGamesRepository.getSortedBy(sortBy, order_asc).subList(page_rows_nb * (page - 1), page * page_rows_nb);
 

@@ -11,6 +11,8 @@ import java.util.List;
 /**
  * @author lelaidou
  */
+
+
 class VideoGame {
     private Integer id;
     private String Name;
@@ -30,66 +32,66 @@ class VideoGame {
     private String Developer;
     private String Rating;
 
-    VideoGame(Integer i, List<String> d) {
+    VideoGame(Integer i, List<String> videoGame_data) {
         id = i;
-        Name = d.get(0).trim();
-        Platform = d.get(1).trim();
+        Name = videoGame_data.get(0).trim();
+        Platform = videoGame_data.get(1).trim();
         try {
-            Year_of_Release = Integer.parseInt(d.get(2).trim());
+            Year_of_Release = Integer.parseInt(videoGame_data.get(2).trim());
         } catch (Exception e) {
             Year_of_Release = 0;
         }
 
-        Genre = d.get(3);
-        Publisher = d.get(4);
+        Genre = videoGame_data.get(3);
+        Publisher = videoGame_data.get(4);
         try {
-            NA_Sales = Double.parseDouble(d.get(5).trim());
+            NA_Sales = Double.parseDouble(videoGame_data.get(5).trim());
         } catch (Exception e) {
             NA_Sales = 0.;
         }
         try {
-            EU_Sales = Double.parseDouble(d.get(6).trim());
+            EU_Sales = Double.parseDouble(videoGame_data.get(6).trim());
         } catch (Exception e) {
             EU_Sales = 0.;
         }
         try {
-            JP_Sales = Double.parseDouble(d.get(7).trim());
+            JP_Sales = Double.parseDouble(videoGame_data.get(7).trim());
         } catch (Exception e) {
             JP_Sales = 0.;
         }
         try {
-            Other_Sales = Double.parseDouble(d.get(8).trim());
+            Other_Sales = Double.parseDouble(videoGame_data.get(8).trim());
         } catch (Exception e) {
             Other_Sales = 0.;
         }
         try {
-            Global_Sales = Double.parseDouble(d.get(9).trim());
+            Global_Sales = Double.parseDouble(videoGame_data.get(9).trim());
         } catch (Exception e) {
             Global_Sales = 0.;
         }
         try {
-            Critic_Score = Double.parseDouble(d.get(10).trim());
+            Critic_Score = Double.parseDouble(videoGame_data.get(10).trim());
         } catch (Exception e) {
             Critic_Score = 0.;
         }
         try {
-            Critic_Count = Integer.parseInt(d.get(11).trim());
+            Critic_Count = Integer.parseInt(videoGame_data.get(11).trim());
         } catch (Exception e) {
             Critic_Count = 0;
         }
         try {
-            User_Score = Double.parseDouble(d.get(12).trim());
+            User_Score = Double.parseDouble(videoGame_data.get(12).trim());
         } catch (Exception e) {
             User_Score = 0.;
         }
         try {
-            User_Count = Integer.parseInt(d.get(13).trim());
+            User_Count = Integer.parseInt(videoGame_data.get(13).trim());
         } catch (Exception e) {
             User_Count = 0;
         }
 
-        Developer = d.get(14).trim();
-        Rating = d.get(15).trim();
+        Developer = videoGame_data.get(14).trim();
+        Rating = videoGame_data.get(15).trim();
     }
 
     Integer getId() {
