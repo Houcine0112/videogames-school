@@ -28,7 +28,7 @@ class VideoGamesRepository {
         return videoGames;
     }
 
-    Map<String, Map<Integer, Double>> getSales(String group_field, String sales_type) {
+    Map<String, Map<Integer, Double>> getGroupedSalesBy(String group_field, String sales_type) {
 
         ToDoubleFunction<VideoGame> sum_param;
         switch (sales_type) {
@@ -55,6 +55,9 @@ class VideoGamesRepository {
                 break;
             case "Publisher":
                 group_param = VideoGame::getPublisher;
+                break;
+            case "Developer":
+                group_param = VideoGame::getDeveloper;
                 break;
             default:
                 group_param = VideoGame::getPlatform;

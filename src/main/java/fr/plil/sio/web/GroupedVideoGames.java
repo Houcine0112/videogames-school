@@ -44,7 +44,7 @@ public class GroupedVideoGames extends HttpServlet {
 
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
         //Map<String, Map<Integer, List<VideoGame>>> videoGames = videoGamesRepository.getGroupedMapBy();
-        Map<String, Map<Integer, Double>> videoGames = videoGamesRepository.getSales(group_field, sales_type);
+        Map<String, Map<Integer, Double>> videoGames = videoGamesRepository.getGroupedSalesBy(group_field, sales_type);
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
 
