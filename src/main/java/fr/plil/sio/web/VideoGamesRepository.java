@@ -8,25 +8,71 @@ package fr.plil.sio.web;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
+import java.util.stream.Collectors;
 
 /**
  * @author lelaidou
  */
-public class VideoGamesRepository {
+
+class VideoGamesRepository {
     private List<VideoGame> videoGames = new ArrayList<>();
 
-    public boolean add(VideoGame videoGame) {
+    boolean add(VideoGame videoGame) {
         return videoGames.add(videoGame);
     }
 
-    public List<VideoGame> getVideoGames() {
+    List<VideoGame> getVideoGames() {
         return videoGames;
     }
 
-    public List<VideoGame> getSortedBy(String sortBy, boolean reverse) {
-        List<VideoGame> list_sorted = new ArrayList<>(videoGames);
+    Map<String, Map<Integer, Double>> getSales(String group_field, String sales_type) {
+
+        ToDoubleFunction<VideoGame> sum_param;
+        switch (sales_type) {
+            case "NA_Sales":
+                sum_param = VideoGame::getNA_Sales;
+                break;
+            case "EU_Sales":
+                sum_param = VideoGame::getEU_Sales;
+                break;
+            case "JP_Sales":
+                sum_param = VideoGame::getJP_Sales;
+                break;
+            case "Other_Sales":
+                sum_param = VideoGame::getOther_Sales;
+                break;
+            default:
+                sum_param = VideoGame::getGlobal_Sales;
+        }
+
+        Function<VideoGame, String> group_param;
+        switch (group_field) {
+            case "Genre":
+                group_param = VideoGame::getGenre;
+                break;
+            case "Publisher":
+                group_param = VideoGame::getPublisher;
+                break;
+            default:
+                group_param = VideoGame::getPlatform;
+        }
+
+        Map<String, Map<Integer, Double>> map = getVideoGames()
+                .stream().collect(Collectors.groupingBy(group_param,
+                        Collectors.groupingBy(VideoGame::getYear_of_Release,
+                                Collectors.summingDouble(sum_param))));
+        return map;
+    }
+
+
+    List<VideoGame> getSortedBy(String sortBy, boolean order_asc) {
+        List<VideoGame> list_sorted = new ArrayList<>(getVideoGames());
         //
         Comparator<VideoGame> comparator;
+
         switch (sortBy) {
             case "Name":
                 comparator = Comparator.comparing((VideoGame v) -> v.getName().toUpperCase());
@@ -79,7 +125,7 @@ public class VideoGamesRepository {
             default:
                 comparator = Comparator.comparing(VideoGame::getId);
         }
-        list_sorted.sort(!reverse ? comparator : comparator.reversed());
+        list_sorted.sort(!order_asc ? comparator : comparator.reversed());
         return list_sorted;
     }
 }
