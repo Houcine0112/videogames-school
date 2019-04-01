@@ -21,7 +21,7 @@ var headers = [
 // default GET params
 var params = {
     page: 1,
-    page_rows_nb: 5,
+    page_rows_nb: 10,
     sortBy: "id",
     order_desc: false
 };
@@ -65,6 +65,7 @@ function insert_table_headers() {
                 params.sortBy = data;
                 params.page = 1; // every new sort begins in the first page
                 update_url();
+                http://localhost:8080/api/videoGames/grouped
                 insert_table();
             });
     });
@@ -87,7 +88,7 @@ function insert_table_body() {
             $.each(arg, function (index, row) {
                 $("#mainTableBody").append("<tr id=row-" + row.id + ">");
                 $.each(headers, function (index, field) {
-                    // the 'id' header is styled differently
+                    // the 'id' col is styled differently
                     if (field === "id")
                         $("#mainTableBody #row-" + row.id)
                             .append("<th scope='col'>" + row[field] + "</th>");
