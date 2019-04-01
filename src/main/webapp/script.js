@@ -127,5 +127,3 @@ $(document).ready(function () {
             update_url();
         }
         insert_table_body();
-    });
-});
