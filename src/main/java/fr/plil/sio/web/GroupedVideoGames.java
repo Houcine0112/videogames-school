@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author lelaidou
@@ -45,13 +44,19 @@ public class GroupedVideoGames extends HttpServlet {
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
         //Map<String, Map<Integer, List<VideoGame>>> videoGames = videoGamesRepository.getGroupedMapBy();
         Map<String, Map<Integer, Double>> videoGames = videoGamesRepository.getGroupedSalesBy(group_field, sales_type);
+
+        Set<Integer> years = new TreeSet<>();
+        for (Map<Integer, Double> val : videoGames.values()) {
+            years.addAll(val.keySet());
+        }
+
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
 
-        String json = gson.toJson(videoGames);
-
+        String videoGames_json = gson.toJson(videoGames);
+        String years_json = gson.toJson(years);
         PrintWriter out = response.getWriter();
-        out.println(json);
+        out.println("[" + years_json + "," + videoGames_json + "]");
 
 
     }
