@@ -1,0 +1,88 @@
+.ct-series-p .ct-bar, .ct-series-p .ct-line, .ct-series-p .ct-point, .ct-series-p .ct-slice-donut {
+    stroke: #caaca8
+}
+
+.ct-series-p .ct-area, .ct-series-p .ct-slice-donut-solid, .ct-series-p .ct-slice-pie {
+    fill: #caaca8
+}
+
+
+.ct-series-q .ct-bar, .ct-series-q .ct-line, .ct-series-q .ct-point, .ct-series-q .ct-slice-donut {
+    stroke: #94a654
+}
+
+.ct-series-q .ct-area, .ct-series-q .ct-slice-donut-solid, .ct-series-q .ct-slice-pie {
+    fill: #94a654
+}
+
+.ct-series-r .ct-bar, .ct-series-r .ct-line, .ct-series-r .ct-point, .ct-series-r .ct-slice-donut {
+    stroke: #044541
+}
+
+.ct-series-r .ct-area, .ct-series-r .ct-slice-donut-solid, .ct-series-r .ct-slice-pie {
+    fill: #044541
+}
+
+.ct-series-s .ct-bar, .ct-series-s .ct-line, .ct-series-s .ct-point, .ct-series-s .ct-slice-donut {
+    stroke: #862e17
+}
+
+.ct-series-s .ct-area, .ct-series-s .ct-slice-donut-solid, .ct-series-s .ct-slice-pie {
+    fill: #862e17
+}
+
+.ct-series-t .ct-bar, .ct-series-t .ct-line, .ct-series-t .ct-point, .ct-series-t .ct-slice-donut {
+    stroke: #71ca15
+}
+
+.ct-series-t .ct-area, .ct-series-t .ct-slice-donut-solid, .ct-series-t .ct-slice-pie {
+    fill: #71ca15
+}
+
+.ct-series-u .ct-bar, .ct-series-u .ct-line, .ct-series-u .ct-point, .ct-series-u .ct-slice-donut {
+    stroke: #725d6c
+}
+
+.ct-series-u .ct-area, .ct-series-u .ct-slice-donut-solid, .ct-series-u .ct-slice-pie {
+    fill: #725d6c
+}
+
+.ct-series-v .ct-bar, .ct-series-v .ct-line, .ct-series-v .ct-point, .ct-series-v .ct-slice-donut {
+    stroke: #9bbfca
+}
+
+.ct-series-v .ct-area, .ct-series-v .ct-slice-donut-solid, .ct-series-v .ct-slice-pie {
+    fill: #9bbfca
+}
+
+.ct-series-w .ct-bar, .ct-series-w .ct-line, .ct-series-w .ct-point, .ct-series-w .ct-slice-donut {
+    stroke: #a99b68
+}
+
+.ct-series-w .ct-area, .ct-series-w .ct-slice-donut-solid, .ct-series-w .ct-slice-pie {
+    fill: #a99b68
+}
+
+.ct-series-x .ct-bar, .ct-series-x .ct-line, .ct-series-x .ct-point, .ct-series-x .ct-slice-donut {
+    stroke: #a9a93c
+}
+
+.ct-series-x .ct-area, .ct-series-x .ct-slice-donut-solid, .ct-series-x .ct-slice-pie {
+    fill: #a9a93c
+}
+
+.ct-series-y .ct-bar, .ct-series-y .ct-line, .ct-series-y .ct-point, .ct-series-y .ct-slice-donut {
+    stroke: #ca94c6
+}
+
+.ct-series-y .ct-area, .ct-series-y .ct-slice-donut-solid, .ct-series-y .ct-slice-pie {
+    fill: #ca94c6
+}
+
+.ct-series-z .ct-bar, .ct-series-z .ct-line, .ct-series-z .ct-point, .ct-series-z .ct-slice-donut {
+    stroke: #31ca24
+}
+
+.ct-series-z .ct-area, .ct-series-z .ct-slice-donut-solid, .ct-series-z .ct-slice-pie {
+    fill: #31ca24
+}

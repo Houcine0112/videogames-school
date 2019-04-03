@@ -83,7 +83,7 @@ function insert_table_body() {
         .done(function (arg) {
             $("#page")
                 .empty()
-                .append("<h1 class=\"display-4 \" > Page : " + params.page + "</h1>");
+                .append(" Page : " + params.page);
             $("#mainTableBody").empty();
             $.each(arg, function (index, row) {
                 $("#mainTableBody").append("<tr id=row-" + row.id + ">");
@@ -127,3 +127,5 @@ $(document).ready(function () {
             update_url();
         }
         insert_table_body();
+    });
+});

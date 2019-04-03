@@ -1,8 +1,9 @@
+<%@ page import="fr.plil.sio.web.VideoGamesRepository" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Dynamic table</title>
+    <title>Static table</title>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <script crossorigin="anonymous"
@@ -15,7 +16,6 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="script.js"></script>
     <script>
     </script>
 </head>
@@ -31,10 +31,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/chart.html">Chart</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/videogames.html">Dynamic table</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/videogames.jsp">Static table</a>
             </li>
         </ul>
@@ -56,10 +56,25 @@
 
     <div class="table-responsive">
         <table class="table table-sm table-striped table-hover">
-            <thead class="thead-dark" id="mainTableHeader">
-            </thead>
-            <tbody id='mainTableBody'>
-            </tbody>
+            <%
+                VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
+                VideoGame head = videoGames.get(0);
+                out.println("<tr>");
+                out.println("<td> # </td>");
+                for (String d : head.getData()) {
+                    out.println("<td>" + d + "</td>");
+                }
+                out.println("</tr>");
+                for (int i = page * 10 - 10; i < page * 10 + 1; i++) {
+                    VideoGame v = videoGames.get(i);
+                    out.println("<tr>");
+                    out.println("<td>" + i + "</td>");
+                    for (String d : v.getData()) {
+                        out.println("<td>" + d + "</td>");
+                    }
+                    out.println("</tr>");
+                }
+            %>
         </table>
     </div>
 </div>

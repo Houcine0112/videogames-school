@@ -1,69 +1,125 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
 <head>
     <title>chart</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.min.css">
+    <link rel="stylesheet" href="/my_chartist.css">
+    <link rel="stylesheet" href="/my_chartist-plugins.legend.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist-plugin-legend/0.6.2/chartist-plugin-legend.js"></script>
+    <script src="chartist-plugin-axistitle.js"></script>
+
 </head>
-<body>
-<div class="ct-chart ct-perfect-fourth"></div>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <img src="/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/.">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/chart.html">Chart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/videogames.html">Dynamic table</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/videogames.jsp">Static table</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="ct-chart-line container"></div>
+
 <script>
-    var labels = [];
+    var chart_params = {
+        sales_type: "Global_Sales",
+        group_field: "Platform",
+        from_year: 1990,
+        to_year: 2020
+    };
     var series = [];
     var serie = [];
-    $(document).ready(function () {
-        $.ajax(
-            "/api/videoGames/grouped" +
-            "?sales_type=Global_Sales&group_field=Plateform"
-        )
-            .done(function (arg) {
-                $.each(arg, function (platform, data) {
-                    labels.push(platform);
-                    serie = [];
-                    $.each(data, function (year, sales) {
-                        if (year > 0) {
-                            serie.push({x: year, y: sales})
-                        }
-
-                    });
-                    series.push(serie);
-                });
-            })
-            .fail(function () {
-                alert("error");
-            });
-
-        console.log(labels);
-        console.log(series);
-
-        new Chartist.Line('.ct-chart', d, options);
-
-    });
-
-    var d = {
-        series: series
-    };
-    var options = {
-        axisX: {
-            type: Chartist.AutoScaleAxis,
-            onlyInteger: true
-        },
-        width: '80%',
-        height: '50%',
-        lineSmooth: Chartist.Interpolation.cardinal({
-            tension: 0.2
-        })
+    var years = [];
+    for (var year = chart_params.from_year; year <= chart_params.to_year; year++) {
+        years.push(year);
     }
-
-
+    $.ajax(
+        "/api/videoGames/grouped" +
+        "?sales_type=" + chart_params.sales_type +
+        "&group_field=" + chart_params.group_field
+    )
+        .done(function (arg) {
+            //       years = arg[0].slice(1);
+            $.each(arg[1], function (group_field, data) {
+                var dic = {"name": group_field === undefined || group_field === "" ? "Uknown" : group_field};
+                serie = [];
+                $.each(years, function (index, year) {
+                    serie.push({x: year, y: data[year] === undefined ? 0 : data[year]});
+                });
+                dic["data"] = serie;
+                series.push(dic);
+            });
+            var d = {
+                labels: years,
+                series: series
+            };
+            var options = {
+                showPoint: false,
+                fullWidth: true,
+                width: "100%",
+                height: "400px",
+                low: 0,
+                chartPadding: {
+                    right: 40,
+                    left: 40,
+                    top: 10
+                },
+                plugins: [
+                    Chartist.plugins.legend({
+                        position: 'bottom',
+                        className: 'mt-3'
+                    }),
+                    Chartist.plugins.ctAxisTitle({
+                        axisX: {
+                            axisTitle: 'Years',
+                            axisClass: 'ct-axis-title',
+                            offset: {
+                                x: 0,
+                                y: 35
+                            },
+                            textAnchor: 'middle'
+                        },
+                        axisY: {
+                            axisTitle: 'Sales $',
+                            axisClass: 'ct-axis-title',
+                            offset: {
+                                x: 0,
+                                y: -20
+                            },
+                            textAnchor: 'middle',
+                            flipTitle: false
+                        }
+                    })
+                ]
+            };
+            new Chartist.Line('.ct-chart-line', d, options);
+        })
+        .fail(function () {
+            alert("error");
+        });
 
 </script>
 </body>
