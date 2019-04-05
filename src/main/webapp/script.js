@@ -6,9 +6,9 @@ var headers = [
     "Year_of_Release",
     "Genre",
     "Publisher",
-    //"NA_Sales",
-    //"EU_Sales",
-    //"JP_Sales",
+    "NA_Sales",
+    "EU_Sales",
+    "JP_Sales",
     //"Other_Sales",
     "Global_Sales"
     //"Critic_Score",

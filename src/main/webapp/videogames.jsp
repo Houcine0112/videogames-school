@@ -1,9 +1,10 @@
-<%@ page import="fr.plil.sio.web.VideoGamesRepository" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <title>Static table</title>
+    <link rel="icon" href="icon.png"/>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <script crossorigin="anonymous"
@@ -35,44 +36,52 @@
                 <a class="nav-link" href="/videogames.html">Dynamic table</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/videogames.jsp">Static table</a>
+                <a class="nav-link" href="/VideoGamesServlet">Static table</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<nav class="container" aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <button class="page-link" id="previous-page" type="button">Previous page</button>
-        </li>
-        <li class="page-item">
-            <button class="page-link" id="next-page" type="button">Next page</button>
-        </li>
-    </ul>
-</nav>
+
 
 <div class="container mr-auto">
-
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="number" min="1" max="999999" class="form-control" id="page" name="page" placeholder="Page">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    </form>
     <div class="table-responsive">
         <table class="table table-sm table-striped table-hover">
+            <thead class="thead-dark">
+            <th>Name</th>
+            <th>Platform</th>
+            <th>Year_of_Release</th>
+            <th>Genre</th>
+            <th>Publisher</th>
+            <th>NA_Sales</th>
+            <th>EU_Sales</th>
+            <th>JP_Sales</th>
+            <th>Other_Sales</th>
+            <th>Global_Sales</th>
+            <th>Critic_Score</th>
+            <th>Critic_Count</th>
+            <th>User_Score</th>
+            <th>User_Count</th>
+            <th>Developer</th>
+            <th>Rating</th>
+            </thead>
             <%
-                VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
-                VideoGame head = videoGames.get(0);
-                out.println("<tr>");
-                out.println("<td> # </td>");
-                for (String d : head.getData()) {
-                    out.println("<td>" + d + "</td>");
-                }
-                out.println("</tr>");
-                for (int i = page * 10 - 10; i < page * 10 + 1; i++) {
-                    VideoGame v = videoGames.get(i);
-                    out.println("<tr>");
-                    out.println("<td>" + i + "</td>");
-                    for (String d : v.getData()) {
-                        out.println("<td>" + d + "</td>");
+                if (request.getAttribute("data") != null) {
+                    List<List<String>> data = (List<List<String>>) request.getAttribute("data");
+                    for (List<String> row : data) {
+                        out.println("<tr>");
+                        for (String v : row) {
+                            out.println("<td>" + v + "</td>");
+                        }
+                        out.println("</tr>");
                     }
-                    out.println("</tr>");
+
                 }
             %>
         </table>
