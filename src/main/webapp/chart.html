@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>chart</title>
+    <title>Chart</title>
+    <link rel="icon" href="icon.png"/>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -34,92 +35,127 @@
                 <a class="nav-link" href="/videogames.html">Dynamic table</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/videogames.jsp">Static table</a>
+                <a class="nav-link" href="/VideoGamesServlet">Static table</a>
             </li>
         </ul>
     </div>
 </nav>
 
+<div class="container mb-3">
+    <div class="row">
+        <div class="col-5">
+        </div>
+        <form id="group_field_form">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="group_field" id="Platform" autocomplete="off" value="Platform" checked>
+                    Platform
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="group_field" id="Genre" autocomplete="off" value="Genre   "> Genre
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
 
-<div class="ct-chart-line container"></div>
+
+<div class="ct-chart-line container" id="chart"></div>
 
 <script>
+
     var chart_params = {
         sales_type: "Global_Sales",
-        group_field: "Platform",
-        from_year: 1990,
-        to_year: 2020
+        group_field: "Platform"
     };
-    var series = [];
-    var serie = [];
-    var years = [];
-    for (var year = chart_params.from_year; year <= chart_params.to_year; year++) {
-        years.push(year);
-    }
-    $.ajax(
-        "/api/videoGames/grouped" +
-        "?sales_type=" + chart_params.sales_type +
-        "&group_field=" + chart_params.group_field
-    )
-        .done(function (arg) {
-            //       years = arg[0].slice(1);
-            $.each(arg[1], function (group_field, data) {
-                var dic = {"name": group_field === undefined || group_field === "" ? "Uknown" : group_field};
-                serie = [];
-                $.each(years, function (index, year) {
-                    serie.push({x: year, y: data[year] === undefined ? 0 : data[year]});
+
+    function insert_chart() {
+        var series = [];
+        var serie = [];
+        var labels = [];
+        $("#chart").empty();
+        $.ajax(
+            "/api/videoGames/grouped" +
+            "?sales_type=" + chart_params.sales_type +
+            "&group_field=" + chart_params.group_field
+        )
+            .done(function (arg) {
+                var years = arg[0];
+                $.each(arg[1], function (group_field, data) {
+                    var dic = {"name": group_field === undefined || group_field === "" ? "Uknown" : group_field};
+                    serie = [];
+                    $.each(years, function (index, year) {
+                        serie.push({x: year, y: data[year]});
+                    });
+                    dic["data"] = serie;
+                    series.push(dic);
                 });
-                dic["data"] = serie;
-                series.push(dic);
+
+                // creaating space between labels
+                $.each(years, function (index, year) {
+                    labels.push(year % 2 == 0 ? year : "");
+                });
+
+                var chart_data = {
+                    labels: labels,
+                    series: series
+                };
+                var chart_options = {
+                    showPoint: false,
+                    fullWidth: true,
+                    width: "100%",
+                    height: "400px",
+                    low: 0,
+                    chartPadding: {
+                        right: 40,
+                        left: 40,
+                        top: 10
+                    },
+                    axisY: {
+                        type: Chartist.AutoScaleAxis
+                    },
+                    plugins: [
+                        Chartist.plugins.legend({
+                            position: 'bottom',
+                            className: 'mt-3'
+                        }),
+                        Chartist.plugins.ctAxisTitle({
+                            axisX: {
+                                axisTitle: 'Years',
+                                axisClass: 'ct-axis-title',
+                                offset: {
+                                    x: 0,
+                                    y: 35
+                                },
+                                textAnchor: 'middle'
+                            },
+                            axisY: {
+                                axisTitle: 'Sales $',
+                                axisClass: 'ct-axis-title',
+                                offset: {
+                                    x: 0,
+                                    y: -20
+                                },
+                                textAnchor: 'middle',
+                                flipTitle: false
+                            }
+                        })
+                    ]
+                };
+                new Chartist.Line('.ct-chart-line', chart_data, chart_options);
+            })
+            .fail(function () {
+                alert("error");
             });
-            var d = {
-                labels: years,
-                series: series
-            };
-            var options = {
-                showPoint: false,
-                fullWidth: true,
-                width: "100%",
-                height: "400px",
-                low: 0,
-                chartPadding: {
-                    right: 40,
-                    left: 40,
-                    top: 10
-                },
-                plugins: [
-                    Chartist.plugins.legend({
-                        position: 'bottom',
-                        className: 'mt-3'
-                    }),
-                    Chartist.plugins.ctAxisTitle({
-                        axisX: {
-                            axisTitle: 'Years',
-                            axisClass: 'ct-axis-title',
-                            offset: {
-                                x: 0,
-                                y: 35
-                            },
-                            textAnchor: 'middle'
-                        },
-                        axisY: {
-                            axisTitle: 'Sales $',
-                            axisClass: 'ct-axis-title',
-                            offset: {
-                                x: 0,
-                                y: -20
-                            },
-                            textAnchor: 'middle',
-                            flipTitle: false
-                        }
-                    })
-                ]
-            };
-            new Chartist.Line('.ct-chart-line', d, options);
-        })
-        .fail(function () {
-            alert("error");
-        });
+    }
+
+    $('#group_field_form input').on('change', function () {
+        chart_params.group_field = $('input[name=group_field]:checked', '#group_field_form').val();
+        insert_chart();
+    });
+    $(document).ready(function () {
+        insert_chart();
+    });
 
 </script>
 </body>
