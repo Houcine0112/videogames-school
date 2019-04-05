@@ -49,6 +49,7 @@ public class GroupedVideoGames extends HttpServlet {
         for (Map<Integer, Double> val : videoGames.values()) {
             years.addAll(val.keySet());
         }
+        years.remove(0);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
