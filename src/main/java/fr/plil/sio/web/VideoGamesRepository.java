@@ -5,7 +5,10 @@
  */
 package fr.plil.sio.web;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
@@ -24,6 +27,7 @@ class VideoGamesRepository {
     List<VideoGame> getVideoGames() {
         return videoGames;
     }
+
     Map<String, Map<Integer, Double>> getGroupedSalesBy(String group_field, String sales_type) {
 
         ToDoubleFunction<VideoGame> sum_param;

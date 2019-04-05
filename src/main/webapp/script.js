@@ -65,7 +65,6 @@ function insert_table_headers() {
                 params.sortBy = data;
                 params.page = 1; // every new sort begins in the first page
                 update_url();
-                http://localhost:8080/api/videoGames/grouped
                 insert_table();
             });
     });
