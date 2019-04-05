@@ -21,7 +21,7 @@
 </head>
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-1">
     <img src="/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
@@ -41,21 +41,38 @@
     </div>
 </nav>
 
-<div class="container mb-3">
-    <div class="row">
-        <div class="col-5">
+<div class="container mb-1">
+    <div class="row justify-content-md-center">
+        <div class="col-2">
+            <form id="sales_type_form">
+                <div class="form-group">
+                    <label for="sales_type_form_select">
+                        <select class="form-control" id="sales_type_form_select">
+                            <option name="sales_type" value="Global_Sales">Global sales</option>
+                            <option name="sales_type" value="EU_Sales">EU sales</option>
+                            <option name="sales_type" value="NA_Sales">NA sales</option>
+                            <option name="sales_type" value="JP_Sales">JP sales</option>
+                            <option name="sales_type" value="Other_Sales">Other sales</option>
+                        </select>
+                    </label>
+                </div>
+            </form>
         </div>
-        <form id="group_field_form">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active">
-                    <input type="radio" name="group_field" id="Platform" autocomplete="off" value="Platform" checked>
-                    Platform
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" name="group_field" id="Genre" autocomplete="off" value="Genre   "> Genre
-                </label>
-            </div>
-        </form>
+        <div class="col-1"><p class="h3">By</p></div>
+        <div class="col-2">
+            <form id="group_field_form">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="group_field" id="Platform" autocomplete="off" value="Platform"
+                               checked>
+                        Platform
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="group_field" id="Genre" autocomplete="off" value="Genre   "> Genre
+                    </label>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -63,7 +80,6 @@
 <div class="ct-chart-line container" id="chart"></div>
 
 <script>
-
     var chart_params = {
         sales_type: "Global_Sales",
         group_field: "Platform"
@@ -149,8 +165,13 @@
             });
     }
 
-    $('#group_field_form input').on('change', function () {
+    $('#group_field_form input').change(function () {
         chart_params.group_field = $('input[name=group_field]:checked', '#group_field_form').val();
+        insert_chart();
+    });
+
+    $('#sales_type_form_select').change(function () {
+        chart_params.sales_type = $("#sales_type_form_select option:selected").val();
         insert_chart();
     });
     $(document).ready(function () {
