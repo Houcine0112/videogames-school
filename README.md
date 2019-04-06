@@ -26,17 +26,18 @@ This website has two parts :
 As all web projects, we have a **backend** and a **frontend**.
 
 ### Backend
-Consists of 6 java classes :
+Consists of 5 java classes :
 * `VideoGame`            : a video game is one line of the `CSV` file. It contains all the information in the 
 `CSV` file.
 * `VideoGamesRepository` : It groups all the video games in a list. It can also :
     1. add a video game
     2. return a sorted list of video games. 
     3. return the sum of video games annual sales grouped by platform or genre
-* `StartupListener`      : Reads the `CSV` and creates video games ad add them to the repository. Adds the repository to context. 
-* `VideoGamesServlet`    : a Servlet that serves for showing data in a static table.
-* `ListVideoGames`       : an api Servlet. It returns a JSON containing video games.
-* `GroupedVideoGames`    : an api Servlet. It returns a JSON containing grouped annual sales of video games.
+* `StartupListener`      : Reads the `CSV` and creates video games, adds them to the repository and then to context. 
+* `VideoGamesServlet`    : a Servlet for showing data in a static table.
+* `ApiVideoGames`       : an api Servlet It can returns : 
+    1. a `JSON` containing video games.
+    2. or a `JSON` containing grouped annual sales of video games.
 
 ### Frontend
  
