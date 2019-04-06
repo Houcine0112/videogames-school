@@ -35,7 +35,7 @@
                 <a class="nav-link" href="/videogames.html">Dynamic table</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/VideoGamesServlet">Static table</a>
+                <a class="nav-link" href="/videoGamesStatic">Static table</a>
             </li>
         </ul>
     </div>
@@ -90,9 +90,9 @@
         var serie = [];
         var labels = [];
         $.ajax(
-            "/api/videoGames/grouped" +
-            "?sales_type=" + chart_params.sales_type +
-            "&group_field=" + chart_params.group_field
+            "/api/videoGames/grouped/" +
+            chart_params.sales_type + "/" +
+            chart_params.group_field
         )
             .done(function (arg) {
                 var years = arg[0];

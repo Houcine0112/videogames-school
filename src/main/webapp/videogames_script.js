@@ -73,13 +73,18 @@ function insert_table_headers() {
 
 function insert_table_body() {
     $.ajax(
-        "/api/videoGames/all" +
-        "?sortBy=" + params.sortBy +
-        "&order_desc=" + params.order_desc +
-        "&page=" + params.page +
-        "&page_rows_nb=" + params.page_rows_nb
+        "/api/videoGames/all/" +
+        params.page + "/" +
+        params.page_rows_nb + "/" +
+        params.sortBy + "/" +
+        params.order_desc
     )
         .done(function (arg) {
+            console.log("/api/videoGames/all/" +
+                params.page + "/" +
+                params.page_rows_nb + "/" +
+                params.sortBy + "/" +
+                params.order_desc);
             $("#page")
                 .empty()
                 .append(" Page : " + params.page);
