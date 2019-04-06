@@ -29,17 +29,33 @@ As all web projects, we have a **backend** and a **frontend**.
 
 ### Backend
 Consists of 5 java classes :
-* `VideoGame`            : a video game is one line of the `CSV` file. It contains all the information in the 
-`CSV` file.
-* `VideoGamesRepository` : It groups all the video games in a list. It can also :
+* `VideoGame` : a video game is one line of the `CSV` file. We keep all 
+  columns .
+* `VideoGamesRepository` : It groups all video games in a list. It can also :
     1. add a video game
     2. return a sorted list of video games. 
-    3. return the sum of video games annual sales grouped by platform or genre
-* `StartupListener`      : Reads the `CSV` and creates video games, adds them to the repository and then to context. 
-* `VideoGamesServlet`    : a Servlet for showing data in a static table.
-* `ApiVideoGames`       : an api Servlet It can returns : 
-    1. a `JSON` containing video games.
-    2. or a `JSON` containing grouped annual sales of video games.
+    3. return video games annual sales grouped by platform or genre.
+* `StartupListener` : Reads the `CSV` and creates video games of it.
+  Then, it adds them to the repository and the context.
+* `VideoGamesServlet` : a servlet for showing data in a static table.
+* `ApiVideoGames`: an api servlet that returns a `Json` containing data
+  about :
+  1. raw video games data. But limited to a certain amount of rows (10
+     per page by default)
+  2. or annual sales of video games grouped by platform or genre
 
 ### Frontend
  
+As said above, in **frontend** we used `Jquery` for data manipulation
+and `ChartistJs` for data plotting. I added `Bootstrap 4` for better
+styling.
+
+I also added some plugins and `CSS` related to `ChartistJs` (in
+`added_chartist` folder):
+1. `chartist-plugin-legend.js` : to add a legend to charts
+   *  added `CSS` to it because it is provided without any styling (you
+      may find it in `my_chartist-plugins.legend.css`)
+2. `chartist-plugin-axistitle.js` : to add axis labels
+3. `my_chartist.css` : to add colors to some series that were left
+   without coloring. In the default `ChartistJs` `CSS`, they provided
+   coloring for only the first 15 series in a chart.
