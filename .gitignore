@@ -34,8 +34,5 @@ gen
 .gitignore
 .idea/uiDesigner.xml
 .idea/workspace.xml
-target/classes/fr/plil/sio/web/GroupedVideoGames.class
-target/classes/fr/plil/sio/web/VideoGamesServlet.class
-target/generated-sources/
-target/tmp/
 target/*
+/README.html
