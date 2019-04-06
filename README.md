@@ -38,8 +38,7 @@ Consists of 5 java classes :
 * `StartupListener` : Reads the `CSV` and creates video games of it.
   Then, it adds them to the repository and the context.
 * `VideoGamesServlet` : a servlet for showing data in a static table.
-* `ApiVideoGames`: an api servlet that returns a `Json` containing data
-  about :
+* `ApiVideoGames`: an api servlet that returns a `Json` containing :
   1. raw video games data. But limited to a certain amount of rows (10
      per page by default)
   2. or annual sales of video games grouped by platform or genre
@@ -50,8 +49,8 @@ As said above, in **frontend** we used `Jquery` for data manipulation
 and `ChartistJs` for data plotting. I added `Bootstrap 4` for better
 styling.
 
-I also added some plugins and `CSS` related to `ChartistJs` (in
-`added_chartist` folder):
+#### `/added_chartist`
+I added some plugins and `CSS` related to `ChartistJs` :
 1. `chartist-plugin-legend.js` : to add a legend to charts
    *  added `CSS` to it because it is provided without any styling (you
       may find it in `my_chartist-plugins.legend.css`)
@@ -59,3 +58,27 @@ I also added some plugins and `CSS` related to `ChartistJs` (in
 3. `my_chartist.css` : to add colors to some series that were left
    without coloring. In the default `ChartistJs` `CSS`, they provided
    coloring for only the first 15 series in a chart.
+
+#### `/pics`
+Contains Home page image and logo.
+
+#### `/index.html`
+The home page. Like all the other pages, it contains a navigation bar.
+
+#### `/chart.html`
+Contains a dynamic chart for which we can change two parameters :
+1. **Type of sales** : Global, Europe, North America, Japan...
+2. **Grouping param** : we can group sales by **Platform** (PS2, Xbox,
+   DS ...) or **Genre** (Action, Strategy, Sport ...) 
+   
+#### `/videogames.html`
+Contains a dynamic table that :
+1. shows data of video games (10 per page)
+2. can be sorted by columns (by clicking on the header of the column)
+
+#### `/script.js`
+Contains all the functions necessary for `/videogames.html` and `/chart.html`
+
+#### `/videoGamesStatic.jsp`
+Contains a static table that :
+1. shows data of video games (10 per page)
