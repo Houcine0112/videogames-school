@@ -13,7 +13,7 @@ function init_params() {
                 .replace(/&/g, "\",\"")              // replace '&' with ','
                 .replace(/=/g, "\":\"")) + '"}'      // replace '=' with ':'
             );
-    }
+    } // else we keep the default ones
     // init params of table
     if (GET_params.page_rows_nb !== undefined) {
         table_params.page_rows_nb = parseInt(GET_params.page_rows_nb);
@@ -31,27 +31,26 @@ function init_params() {
     // init params of chart
     if (GET_params.sales_type !== undefined) {
         chart_params.sales_type = GET_params.sales_type;
+        // select the right sales_type
+        $("#sales_type_form_select").val(chart_params.sales_type);
     }
     if (GET_params.group_field !== undefined) {
         chart_params.group_field = GET_params.group_field;
+        // activate btn of the right group_field
         $("#btn-" + chart_params.group_field).addClass("active");
     } else {
+        // if no grouping is specified we activate btn of the default grouping which is Platform
         $("#btn-Platform").addClass("active");
     }
-    // init selected items and checked buttons
-    $("#sales_type_form_select").val(chart_params.sales_type);
-
-
-    // else we will keep the initial params (look global variables)
 }
 
 // case we change something in the params
 function update_url(params) {
-    // this updates the url without reloading the page (windows.location.replace(url))
-    window.history.pushState('', 'updted', dir + "?" + $.param(params));
+    // this updates the url without reloading the page
+    window.history.pushState('', 'update', dir + "?" + $.param(params));
 }
 
-
+// table headers
 var headers = [
     "id",
     "Name",
@@ -81,15 +80,15 @@ var table_params = {
 
 function insert_table_headers() {
     $("#mainTableHeader").empty();
-    $.each(headers, function (index, data) {
+    $.each(headers, function (index, header) {
         $("#mainTableHeader")
-            .append("<th scope='col' id='col-" + data + "' style='cursor: pointer;'>" + data + "</th>");
-        $("#col-" + data)
+            .append("<th scope='col' id='col-" + header + "' style='cursor: pointer;'>" + header + "</th>");
+        $("#col-" + header)
             .click(function () {
                 // if we click on the same header the order change else the order is not reversed (means : ordering asc)
-                table_params.order_desc = (table_params.sortBy === data ? !table_params.order_desc : false);
+                table_params.order_desc = (table_params.sortBy === header ? !table_params.order_desc : false);
                 // update data and recreate the table
-                table_params.sortBy = data;
+                table_params.sortBy = header;
                 table_params.page = 1; // every new sort begins in the first page
                 update_url(table_params);
                 insert_table();
@@ -106,29 +105,24 @@ function insert_table_body() {
         table_params.sortBy + "/" +
         table_params.order_desc
     )
-        .done(function (arg) {
-            console.log("/api/videoGames/all/" +
-                table_params.page + "/" +
-                table_params.page_rows_nb + "/" +
-                table_params.sortBy + "/" +
-                table_params.order_desc);
+        .done(function (json) {
             $("#mainTableBody").empty();
-            $.each(arg, function (index, row) {
+            $.each(json, function (index, row) {
                 $("#mainTableBody").append("<tr id=row-" + row.id + ">");
-                $.each(headers, function (index, field) {
-                    // the 'id' col is styled differently
-                    if (field === "id")
+                $.each(headers, function (index, header) {
+                    // the 'id' column is styled differently
+                    if (header === "id")
                         $("#mainTableBody #row-" + row.id)
-                            .append("<th scope='col'>" + row[field] + "</th>");
+                            .append("<th scope='col'>" + row[header] + "</th>");
                     else
                         $("#mainTableBody #row-" + row.id)
-                            .append("<td>" + row[field] + "</td>");
+                            .append("<td>" + row[header] + "</td>");
                 });
 
             });
         })
         .fail(function () {
-            alert("error");
+            alert("error table");
         });
 }
 
@@ -146,31 +140,36 @@ var chart_params = {
 
 function insert_chart() {
     $("#chart").empty();
-    var series = [];
-    var serie = [];
-    var labels = [];
     $.ajax(
         "/api/videoGames/grouped/" +
         chart_params.sales_type + "/" +
         chart_params.group_field
     )
-        .done(function (arg) {
-            var years = arg[0];
-            $.each(arg[1], function (group_field, data) {
-                var dic = {"name": group_field === undefined || group_field === "" ? "Uknown" : group_field};
-                serie = [];
-                $.each(years, function (index, year) {
-                    serie.push({x: year, y: data[year]});
-                });
-                dic["data"] = serie;
-                series.push(dic);
-            });
-
-            // creaating space between labels
+        .done(function (json) {
+            var years = json[0];
+            // creaating space between labels (only for plotting the chart)
+            var labels = [];
             $.each(years, function (index, year) {
                 labels.push(year % 2 == 0 ? year : "");
             });
 
+            var grouped_videogames = json[1];
+            var series = [];
+            $.each(grouped_videogames, function (group_field, sales) {
+                // if a group_field is empty or undefined we pass it
+                if (group_field === undefined || group_field === "") {
+                    return true; // like pass or continue in other programming languages
+                }
+                // each serie represents a line to be ploted
+                var serie = {"name": group_field, "data": []};
+                $.each(years, function (index, year) {
+                    // for each year (x) we have a sale value (y). in case there is no sale value we let 'undefined'
+                    serie.data.push({x: year, y: sales[year]});
+                });
+                // push the serie in the list of series
+                series.push(serie);
+            });
+            // params of Chartist constructor
             var chart_data = {
                 labels: labels,
                 series: series
@@ -189,6 +188,7 @@ function insert_chart() {
                 axisY: {
                     type: Chartist.AutoScaleAxis
                 },
+                // fill the holes created by undefined values
                 lineSmooth: Chartist.Interpolation.cardinal({
                     fillHoles: true,
                 }),
@@ -220,10 +220,10 @@ function insert_chart() {
                     })
                 ]
             };
+            // creating the chart
             new Chartist.Line('.ct-chart-line', chart_data, chart_options);
         })
         .fail(function () {
-            alert("error");
+            alert("error chart");
         });
 }
-
