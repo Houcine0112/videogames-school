@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Static table</title>
-    <link rel="icon" href="icon.png"/>
+    <link rel="icon" href="pics/icon.png"/>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <script crossorigin="anonymous"
@@ -23,7 +23,7 @@
 
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-    <img src="/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <img src="/pics/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
