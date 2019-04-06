@@ -1,6 +1,6 @@
 var dir = window.location.pathname;
 
-
+var GET_params = {};
 var params_url_format = window.location.search.substring(1, window.location.search.length); // page=1&page_rows_nb=10&sortBy=id&order_desc=false
 var nb_lines = 16719;
 
@@ -13,32 +13,35 @@ function init_params() {
                 .replace(/&/g, "\",\"")              // replace '&' with ','
                 .replace(/=/g, "\":\"")) + '"}'      // replace '=' with ':'
             );
-
-        // init params of table
-        if (GET_params.page_rows_nb !== undefined) {
-            table_params.page_rows_nb = parseInt(GET_params.page_rows_nb);
-        }
-        if (GET_params.order_desc !== undefined) {
-            table_params.page = parseInt(GET_params.page);
-        }
-        if (GET_params.sortBy !== undefined) {
-            table_params.sortBy = GET_params.sortBy;
-        }
-        if (GET_params.page_rows_nb !== undefined) {
-            table_params.order_desc = (GET_params.order_desc === 'true');
-        }
-
-        // init params of chart
-        if (GET_params.sales_type !== undefined) {
-            chart_params.sales_type = GET_params.sales_type;
-        }
-        if (GET_params.group_field !== undefined) {
-            chart_params.group_field = GET_params.group_field;
-        }
-        // init selected items and checked buttons
-        $("#sales_type_form_select").val(chart_params.sales_type);
-        $("#btn-" + chart_params.group_field).addClass("active");
     }
+    // init params of table
+    if (GET_params.page_rows_nb !== undefined) {
+        table_params.page_rows_nb = parseInt(GET_params.page_rows_nb);
+    }
+    if (GET_params.order_desc !== undefined) {
+        table_params.page = parseInt(GET_params.page);
+    }
+    if (GET_params.sortBy !== undefined) {
+        table_params.sortBy = GET_params.sortBy;
+    }
+    if (GET_params.page_rows_nb !== undefined) {
+        table_params.order_desc = (GET_params.order_desc === 'true');
+    }
+
+    // init params of chart
+    if (GET_params.sales_type !== undefined) {
+        chart_params.sales_type = GET_params.sales_type;
+    }
+    if (GET_params.group_field !== undefined) {
+        chart_params.group_field = GET_params.group_field;
+        $("#btn-" + chart_params.group_field).addClass("active");
+    } else {
+        $("#btn-Platform").addClass("active");
+    }
+    // init selected items and checked buttons
+    $("#sales_type_form_select").val(chart_params.sales_type);
+
+
     // else we will keep the initial params (look global variables)
 }
 
