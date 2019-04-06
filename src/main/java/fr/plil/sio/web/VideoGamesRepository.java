@@ -5,10 +5,7 @@
  */
 package fr.plil.sio.web;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
@@ -62,7 +59,9 @@ class VideoGamesRepository {
                 .stream().collect(Collectors.groupingBy(group_param,
                         Collectors.groupingBy(VideoGame::getYear_of_Release,
                                 Collectors.summingDouble(sum_param))));
-        return map;
+        // sort the map by keys
+        Map<String, Map<Integer, Double>> sorted_map = new TreeMap<>(map);
+        return sorted_map;
     }
 
     // returns a sorted version of the video games list
