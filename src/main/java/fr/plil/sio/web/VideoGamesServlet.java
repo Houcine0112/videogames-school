@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author lelaidou
  */
-@WebServlet(name = "VideoGamesServlet", urlPatterns = {"/VideoGamesServlet"})
+@WebServlet(name = "VideoGamesServlet", urlPatterns = {"/videoGamesStatic"})
 public class VideoGamesServlet extends HttpServlet {
 
     /**
@@ -35,7 +35,7 @@ public class VideoGamesServlet extends HttpServlet {
             throws ServletException, IOException {
 
         VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
-        RequestDispatcher rd = request.getRequestDispatcher("/videogames.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/videoGamesStatic.jsp");
         int nb_rows = 5;
         int page = 1;
         if (request.getParameter("page") != null && !request.getParameter("page").equals("")) {
