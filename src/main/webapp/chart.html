@@ -84,12 +84,14 @@
         insert_chart();
 
         $('#group_field_form input').change(function () {
+            // catch change in input btns of group field
             chart_params.group_field = $('input[name=group_field]:checked', '#group_field_form').val();
             update_url(chart_params);
             insert_chart();
         });
 
         $('#sales_type_form_select').change(function () {
+            // catch change in selector of sales type
             chart_params.sales_type = $("#sales_type_form_select option:selected").val();
             update_url(chart_params);
             insert_chart();

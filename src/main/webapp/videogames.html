@@ -70,6 +70,7 @@
         insert_table();
 
         $("#next-page").click(function () {
+            // verifying that we don't exceed the number of pages that exist
             if (table_params.page + 1 < nb_lines / table_params.page_rows_nb) {
                 table_params.page += 1;
                 update_url(table_params);
@@ -78,6 +79,7 @@
         });
 
         $("#previous-page").click(function () {
+            // verifying that we don't go less than page 1
             if (table_params.page - 1 > 0) {
                 table_params.page += -1;
                 update_url(table_params);

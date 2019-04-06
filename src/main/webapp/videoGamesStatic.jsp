@@ -71,12 +71,15 @@
             <th>Rating</th>
             </thead>
             <%
+                // if data exists we process it
                 if (request.getAttribute("data") != null) {
+                    // data is a list of all rows
                     List<List<String>> data = (List<List<String>>) request.getAttribute("data");
                     for (List<String> row : data) {
                         out.println("<tr>");
-                        for (String v : row) {
-                            out.println("<td>" + v + "</td>");
+                        // a row is a list of all fields
+                        for (String field : row) {
+                            out.println("<td>" + field + "</td>");
                         }
                         out.println("</tr>");
                     }
