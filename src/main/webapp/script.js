@@ -35,8 +35,9 @@ function init_params() {
         if (GET_params.group_field !== undefined) {
             chart_params.group_field = GET_params.group_field;
         }
-
-
+        // init selected items and checked buttons
+        $("#sales_type_form_select").val(chart_params.sales_type);
+        $("#btn-" + chart_params.group_field).addClass("active");
     }
     // else we will keep the initial params (look global variables)
 }
@@ -108,9 +109,6 @@ function insert_table_body() {
                 table_params.page_rows_nb + "/" +
                 table_params.sortBy + "/" +
                 table_params.order_desc);
-            $("#page")
-                .empty()
-                .append(" Page : " + table_params.page);
             $("#mainTableBody").empty();
             $.each(arg, function (index, row) {
                 $("#mainTableBody").append("<tr id=row-" + row.id + ">");
