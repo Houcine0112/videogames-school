@@ -129,6 +129,9 @@
                     axisY: {
                         type: Chartist.AutoScaleAxis
                     },
+                    lineSmooth: Chartist.Interpolation.cardinal({
+                        fillHoles: true,
+                    }),
                     plugins: [
                         Chartist.plugins.legend({
                             position: 'bottom',
