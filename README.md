@@ -4,22 +4,45 @@
 
 **This is a school web project.**
 
+
+## Table of contents
+* [Java-Web project](#java-web-project)
+  * [Table of contents](#table-of-contents)
+  * [Goals](#goals)
+  * [General description](#general-description)
+  * [Detailed description](#detailed-description)
+     * [Backend](#backend)
+        * [/VideoGame.java](#videogamejava)
+        * [/VideoGamesRepository.java](#videogamesrepositoryjava)
+        * [/StartupListener.java](#startuplistenerjava)
+        * [/VideoGamesServlet.java](#videogamesservletjava)
+        * [/ApiVideoGames.java](#apivideogamesjava)
+     * [Frontend](#frontend)
+        * [/added_chartist](#added_chartist)
+        * [/pics](#pics)
+        * [/index.html](#indexhtml)
+        * [/chart.html](#charthtml)
+        * [/videogames.html](#videogameshtml)
+        * [/script.js](#scriptjs)
+        * [/videoGamesStatic.jsp](#videogamesstaticjsp)
+  * [Thank you for your time](#thank-you-for-your-time)
+
 ## Goals
 1. Understanding **MVC Architecture**
 2. Using **Java** in backend
-    * `Jsp`
-    * `Servlets`
+    * **Jsp**
+    * **Servlets**
 3. Using **JavaScript** in frontend
-    * `Jquery`
-    * `ChartistJs` : for charts
+    * **Jquery** : for data manipulation
+    * **ChartistJs** : for charts
 ## General description
 
 The project consists of building a web site that uses data from a `CSV` file.
 This website has two parts :
 
-1. Static 
+1. **Static** :
     * Show video games data in a **static** table
-2. Dynamic
+2. **Dynamic** :
     * Show video games data in a **dynamic** table
     * Plot video games data in a **dynamic** chart
     
@@ -28,20 +51,22 @@ This website has two parts :
 As all web projects, we have a **backend** and a **frontend**.
 
 ### Backend
-Consists of 5 java classes :
-* `VideoGame` : a video game is one line of the `CSV` file. We keep all 
-  columns .
-* `VideoGamesRepository` : It groups all video games in a list. It can also :
-    1. add a video game
-    2. return a sorted list of video games. 
-    3. return video games annual sales grouped by platform or genre.
-* `StartupListener` : Reads the `CSV` and creates video games of it.
-  Then, it adds them to the repository and the context.
-* `VideoGamesServlet` : a servlet for showing data in a static table.
-* `ApiVideoGames`: an api servlet that returns a `Json` containing :
-  1. raw video games data. But limited to a certain amount of rows (10
-     per page by default)
-  2. or annual sales of video games grouped by platform or genre
+Consists of 5 **java** classes :
+#### `/VideoGame.java` 
+A video game is one line of the `CSV` file. We keep all columns .
+#### `/VideoGamesRepository.java`
+It groups all video games in a list. It can also :
+1. add a video game
+2. return a sorted list of video games. 
+3. return video games annual sales grouped by platform or genre.
+#### `/StartupListener.java`
+Reads the `CSV` and creates video games of it. Then, it adds them to the repository and the context.
+#### `/VideoGamesServlet.java`
+A servlet for showing data in a static table.
+#### `/ApiVideoGames.java`
+An api servlet that returns a `Json` containing :
+1. raw video games data. But limited to a certain amount of rows (10 per page by default)
+2. or annual sales of video games grouped by platform or genre
 
 ### Frontend
  
@@ -57,7 +82,7 @@ I added some plugins and `CSS` related to `ChartistJs` :
 2. `chartist-plugin-axistitle.js` : to add axis labels
 3. `my_chartist.css` : to add colors to some series that were left
    without coloring. In the default `ChartistJs` `CSS`, they provided
-   coloring for only the first 15 series in a chart.
+   coloring for only **the first 15 series** in a chart.
 
 #### `/pics`
 Contains Home page image and logo.
@@ -82,3 +107,10 @@ Contains all the functions necessary for `/videogames.html` and `/chart.html`
 #### `/videoGamesStatic.jsp`
 Contains a static table that :
 1. shows data of video games (10 per page)
+
+
+
+
+## Thank you for your time
+ ***If you have any suggestions on how I can improve my code and coding
+ style, please feel free to let me know.***
