@@ -39,7 +39,7 @@ public class VideoGamesServlet extends HttpServlet {
 
         RequestDispatcher rd = request.getRequestDispatcher("/videoGamesStatic.jsp");
 
-        int nb_rows = 5;
+        int nb_rows = 10;
         int page = 1;
         if (request.getParameter("page") != null && !request.getParameter("page").equals("")) {
             if (Integer.parseInt(request.getParameter("page")) < 16719 / nb_rows) {
