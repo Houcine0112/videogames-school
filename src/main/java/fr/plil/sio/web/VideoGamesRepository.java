@@ -28,6 +28,7 @@ class VideoGamesRepository {
         return videoGames;
     }
 
+    // returns a Map of annual sales_type of grouped videogames by a group_field
     Map<String, Map<Integer, Double>> getGroupedSalesBy(String group_field, String sales_type) {
 
         ToDoubleFunction<VideoGame> sum_param;
@@ -64,10 +65,11 @@ class VideoGamesRepository {
         return map;
     }
 
-
+    // returns a sorted version of the video games list
     List<VideoGame> getSortedBy(String sortBy, boolean order_asc) {
+        // the sorting happens on a copy of the list in order to not lose the original order
         List<VideoGame> list_sorted = new ArrayList<>(getVideoGames());
-        //
+
         Comparator<VideoGame> comparator;
 
         switch (sortBy) {
@@ -122,6 +124,7 @@ class VideoGamesRepository {
             default:
                 comparator = Comparator.comparing(VideoGame::getId);
         }
+        // if the order is asc we reverse the comparator
         list_sorted.sort(!order_asc ? comparator : comparator.reversed());
         return list_sorted;
     }

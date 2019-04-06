@@ -34,8 +34,11 @@ public class VideoGamesServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
+        VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext()
+                .getAttribute("videoGamesRepository");
+
         RequestDispatcher rd = request.getRequestDispatcher("/videoGamesStatic.jsp");
+
         int nb_rows = 5;
         int page = 1;
         if (request.getParameter("page") != null && !request.getParameter("page").equals("")) {

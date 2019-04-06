@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.plil.sio.web;
 
 import com.google.gson.Gson;
@@ -37,8 +32,12 @@ public class ApiVideoGames extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+
+        // the response content is JSON
         response.setContentType("application/json;charset=UTF-8");
-        VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext().getAttribute("videoGamesRepository");
+
+        VideoGamesRepository videoGamesRepository = (VideoGamesRepository) getServletContext()
+                .getAttribute("videoGamesRepository");
 
         // default values if not assigned
         int page = 1;
@@ -53,10 +52,15 @@ public class ApiVideoGames extends HttpServlet {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
 
+        // parse URI to get params
         String[] params = request.getRequestURI().split("/");
+
         if (params.length > 3) {
+            // case URI is like '/api/videoGames/all/*'
             if (params[3].equals("all")) {
+                // try{}catch(){} case params don't exist or are wrong (expecting int but not receiving it)
                 try {
+
                     page = Integer.parseInt(params[4]);
                 } catch (Exception e) {
                 }
@@ -76,9 +80,12 @@ public class ApiVideoGames extends HttpServlet {
                 List<VideoGame> videoGames = videoGamesRepository
                         .getSortedBy(sortBy, order_asc)
                         .subList(page_rows_nb * (page - 1), page * page_rows_nb);
+                // json to send
                 json = gson.toJson(videoGames);
 
-            } else if (params[3].equals("grouped")) {
+            }
+            // case URI is like '/api/videoGames/grouped/*'
+            else if (params[3].equals("grouped")) {
                 try {
                     sales_type = params[4];
                 } catch (Exception e) {
@@ -87,21 +94,24 @@ public class ApiVideoGames extends HttpServlet {
                     group_field = params[5];
                 } catch (Exception e) {
                 }
-
+                // map of grouped videogames
                 Map<String, Map<Integer, Double>> groupedVideoGames = videoGamesRepository
                         .getGroupedSalesBy(group_field, sales_type);
+                // Set of unique years to attach. They will serve for the chart labels
                 Set<Integer> years = new TreeSet<>();
                 for (Map<Integer, Double> val : groupedVideoGames.values()) {
                     years.addAll(val.keySet());
                 }
+                // since we converted NAs to 0, we must remove them
                 years.remove(0);
-
-                String videoGames_json = gson.toJson(groupedVideoGames);
                 String years_json = gson.toJson(years);
+                String videoGames_json = gson.toJson(groupedVideoGames);
+                // building Json as a list of both jsons
                 json = "[" + years_json + "," + videoGames_json + "]";
 
             }
         }
+
         PrintWriter out = response.getWriter();
         out.println(json);
     }

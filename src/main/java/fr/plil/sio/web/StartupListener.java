@@ -23,12 +23,14 @@ public class StartupListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         VideoGamesRepository videoGamesRepository = new VideoGamesRepository();
+
         List<List<String>> records = readCsv();
-        int i = 1;
+
+        int id = 1;
         for (List<String> r : records) {
-            VideoGame videoGame = new VideoGame(i, r);
+            VideoGame videoGame = new VideoGame(id, r);
             videoGamesRepository.add(videoGame);
-            i += 1;
+            id += 1;
         }
         event.getServletContext().setAttribute("videoGamesRepository", videoGamesRepository);
     }

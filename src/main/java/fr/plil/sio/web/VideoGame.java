@@ -36,6 +36,8 @@ class VideoGame {
         id = i;
         Name = videoGame_data.get(0).trim();
         Platform = videoGame_data.get(1).trim();
+        // try{}catch(){} case params don't match the expected type
+        // trim() to get rid of blank spaces
         try {
             Year_of_Release = Integer.parseInt(videoGame_data.get(2).trim());
         } catch (Exception e) {
@@ -162,6 +164,7 @@ class VideoGame {
         return Rating;
     }
 
+    // get data as a list to make static implementation easier
     List<String> getData() {
         return Arrays.asList(
                 Name, Platform, Year_of_Release.toString(), Genre, Publisher,
