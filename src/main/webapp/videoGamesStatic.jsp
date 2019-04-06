@@ -36,7 +36,7 @@
                 <a class="nav-link" href="/videogames.html">Dynamic table</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/VideoGamesServlet">Static table</a>
+                <a class="nav-link" href="/videoGamesStatic">Static table</a>
             </li>
         </ul>
     </div>
